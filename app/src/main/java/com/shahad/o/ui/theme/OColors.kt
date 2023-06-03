@@ -1,17 +1,14 @@
 package com.shahad.o.ui.theme
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 // Custom Colors
-object  Colors{
+object Colors {
 
     val PrimaryLightColor = Color(0xFF4A7995)
     val PrimaryDarkColor = Color(0xFF4A7995)
@@ -32,7 +29,6 @@ object  Colors{
 
     val Shade3LightColor = Color(0x61000000)
     val Shade3DarkColor = Color(0x61FFFFFF)
-
 
 
 }
@@ -63,7 +59,7 @@ class OColors(
         private set
 
 
-    fun update(colors: OColors){
+    fun update(colors: OColors) {
         primary = colors.primary
         background = colors.background
         card = colors.card
@@ -74,19 +70,8 @@ class OColors(
 
 }
 
-internal val LocalCustomColors =
-    staticCompositionLocalOf<OColors> { error("No CustomColors provided") }
+internal val LocalOColors = staticCompositionLocalOf { LightThemeColors }
 
-// Composable for custom provider
-@Composable
-fun ProvideCustomColors(
-    colors: OColors,
-    content: @Composable () -> Unit
-) {
-    val colorPalette = remember { colors }
-    colorPalette.update(colors)
-    CompositionLocalProvider(LocalCustomColors provides colorPalette, content = content)
-}
 
 val LightThemeColors by lazy {
     OColors(

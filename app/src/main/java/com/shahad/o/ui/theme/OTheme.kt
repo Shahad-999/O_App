@@ -5,11 +5,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 
 object OTheme {
     val colors: OColors
         @Composable
-        get() = LocalCustomColors.current
+        get() = LocalOColors.current
 
     val typography: Typography
         @Composable
@@ -20,15 +22,21 @@ object OTheme {
         get() = MaterialTheme.shapes
 }
 
+
 @Composable
 fun OTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
 
     val colors = if (darkTheme) DarkThemeColors else LightThemeColors
 
-    ProvideCustomColors(colors = colors) {
+    val rememberedColors = remember { colors }.apply { update(colors) }
+
+    CompositionLocalProvider(
+        LocalOColors provides rememberedColors,
+    ) {
         MaterialTheme(
             typography = Typography,
             content = content
         )
     }
+
 }

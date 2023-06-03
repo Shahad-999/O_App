@@ -3,18 +3,17 @@ package com.shahad.o
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.navigation.splashRoute
 import com.shahad.o.ui.theme.OTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,30 +21,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = OTheme.colors.background
-                ) {
-                    Box(
-                        Modifier.height(40.dp).width(40.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Greeting("SMILE")
-                    }
-                }
+                val navController = rememberNavController()
+                MainScreen(navController)
             }
         }
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = name,
-        modifier = modifier,
-        style = TextStyle(
-            color = OTheme.colors.shade1,
-            fontSize = 20.sp
-        )
-    )
+fun MainScreen(navController: NavHostController) {
+    Scaffold(
+        Modifier.background(OTheme.colors.background)
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = Screens.SplashScreen.route,
+            modifier = Modifier.padding(it)
+        ) {
+            splashRoute(navController)
+
+
+        }
+    }
 }
