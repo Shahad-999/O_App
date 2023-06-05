@@ -83,4 +83,16 @@ dependencies {
     //navigation
     def nav_version = "2.5.3"
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    //Koin
+    implementation "io.insert-koin:koin-android:3.4.1"
+//    implementation 'org.koin:koin-android:3.4.1'
+//    implementation 'org.koin:koin-android-viewmodel:3.4.1'
+//    implementation 'org.koin:koin-androidx-scope:3.4.1'
+    implementation("io.insert-koin:koin-androidx-compose:3.4.1")
+
+
+    //data store
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
 }

@@ -13,6 +13,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.navigation.homeRoute
+import com.shahad.o.ui.navigation.loginRoute
 import com.shahad.o.ui.navigation.splashRoute
 import com.shahad.o.ui.theme.OTheme
 
@@ -41,8 +43,8 @@ fun MainScreen(navController: NavHostController) {
             modifier = Modifier.padding(it)
         ) {
             splashRoute(navController)
-
-
+            homeRoute(navController)
+            loginRoute(navController)
         }
     }
 }
