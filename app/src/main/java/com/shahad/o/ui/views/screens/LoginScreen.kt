@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -16,7 +15,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController,
     viewModel: LoginViewModel = koinViewModel(),
 ) {
     LoginScreenBody(

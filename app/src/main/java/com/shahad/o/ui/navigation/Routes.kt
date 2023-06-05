@@ -6,28 +6,21 @@ import androidx.navigation.compose.composable
 import com.shahad.o.ui.views.screens.HomeScreen
 import com.shahad.o.ui.views.screens.LoginScreen
 import com.shahad.o.ui.views.screens.SplashScreen
+import com.shahad.o.util.go
 
 fun NavGraphBuilder.splashRoute(
     navController: NavHostController
 ) {
-    fun navToHome() = navController.navigate(Screens.HomeScreen.route) {
-        popUpTo(Screens.SplashScreen.route) {
-            inclusive = true
-        }
-    }
+    fun navToHome() =
+        navController.go(source = Screens.SplashScreen, destination = Screens.HomeScreen)
 
-    fun navToLogin() = navController.navigate(Screens.LoginScreen.route) {
-        popUpTo(Screens.SplashScreen.route) {
-            inclusive = true
-        }
-    }
+    fun navToLogin() =
+        navController.go(source = Screens.SplashScreen, destination = Screens.LoginScreen)
 
     composable(Screens.SplashScreen.route) {
         SplashScreen(
-            navController = navController,
             navToHome = ::navToHome,
             navToLogin = ::navToLogin
-
         )
     }
 }
@@ -36,7 +29,7 @@ fun NavGraphBuilder.homeRoute(
     navController: NavHostController
 ) {
     composable(Screens.HomeScreen.route) {
-        HomeScreen(navController = navController)
+        HomeScreen()
     }
 }
 
@@ -45,7 +38,7 @@ fun NavGraphBuilder.loginRoute(
 ) {
     composable(Screens.LoginScreen.route) {
         LoginScreen(
-            navController = navController,
+
         )
     }
 }
