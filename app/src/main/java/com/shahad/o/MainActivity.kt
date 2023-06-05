@@ -13,10 +13,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.shahad.o.ui.navigation.Screens
-import com.shahad.o.ui.navigation.homeRoute
-import com.shahad.o.ui.navigation.loginRoute
-import com.shahad.o.ui.navigation.splashRoute
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.views.screens.homeRoute
+import com.shahad.o.ui.views.screens.loginRoute
+import com.shahad.o.ui.views.screens.splashRoute
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
