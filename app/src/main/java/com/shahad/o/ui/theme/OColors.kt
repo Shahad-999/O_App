@@ -13,6 +13,10 @@ object Colors {
     val PrimaryLightColor = Color(0xFF4A7995)
     val PrimaryDarkColor = Color(0xFF4A7995)
 
+
+    val PrimaryVariantLightColor = Color(0xFF7FAECA)
+    val PrimaryVariantDarkColor = Color(0xFF7FAECA)
+
     val BackgroundLightColor = Color(0xFFFFFFFF)
     val BackgroundDarkColor = Color(0xFF000000)
 
@@ -36,6 +40,7 @@ object Colors {
 @Stable
 class OColors(
     primary: Color,
+    primaryVariant: Color,
     background: Color,
     card: Color,
     shade1: Color,
@@ -45,6 +50,8 @@ class OColors(
 ) {
 
     var primary by mutableStateOf(primary)
+        private set
+    var primaryVariant by mutableStateOf(primaryVariant)
         private set
     var background by mutableStateOf(background)
         private set
@@ -61,6 +68,7 @@ class OColors(
 
     fun update(colors: OColors) {
         primary = colors.primary
+        primaryVariant = colors.primaryVariant
         background = colors.background
         card = colors.card
         shade1 = colors.shade1
@@ -76,6 +84,7 @@ internal val LocalOColors = staticCompositionLocalOf { LightThemeColors }
 val LightThemeColors by lazy {
     OColors(
         primary = Colors.PrimaryLightColor,
+        primaryVariant = Colors.PrimaryVariantLightColor,
         background = Colors.BackgroundLightColor,
         card = Colors.CardLightColor,
         shade1 = Colors.Shade1LightColor,
@@ -88,6 +97,7 @@ val LightThemeColors by lazy {
 val DarkThemeColors by lazy {
     OColors(
         primary = Colors.PrimaryDarkColor,
+        primaryVariant = Colors.PrimaryVariantDarkColor,
         background = Colors.BackgroundDarkColor,
         card = Colors.CardDarkColor,
         shade1 = Colors.Shade1DarkColor,

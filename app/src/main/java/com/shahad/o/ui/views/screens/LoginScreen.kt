@@ -30,6 +30,8 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
 ) {
     LoginBody(
-        modifier = modifier
+        modifier = modifier,
+        onClickLogin = viewModel::onClickLogin,
+        onClickSignUp = viewModel::onClickSignup,
     )
 }
