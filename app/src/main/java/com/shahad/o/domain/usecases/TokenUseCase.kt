@@ -10,11 +10,4 @@ class TokenUseCase(
         return repository.getToken()
     }
 
-    suspend fun saveToken(token: String){
-        repository.saveToken(token)
-    }
-
-    suspend fun deleteToken(){
-        repository.deleteToken()
-    }
 }

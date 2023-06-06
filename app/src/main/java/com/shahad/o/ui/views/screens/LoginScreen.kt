@@ -31,7 +31,7 @@ fun LoginScreen(
 ) {
     LoginBody(
         modifier = modifier,
-        onClickLogin = viewModel::onClickLogin,
+        googleSignIn = viewModel::googleSignIn,
         onClickSignUp = viewModel::onClickSignup,
     )
 }

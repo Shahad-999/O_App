@@ -12,6 +12,7 @@ import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.viewModels.SplashViewModel
 import com.shahad.o.ui.views.widgets.SplashBody
 import com.shahad.o.util.go
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -26,7 +27,7 @@ fun NavGraphBuilder.splashRoute(
 
     composable(Screens.SplashScreen.route) {
         SplashScreen(
-            navToHome = ::navToHome,
+            navToHome = ::navToLogin,
             navToLogin = ::navToLogin
         )
     }
@@ -44,6 +45,7 @@ fun SplashScreen(
         modifier = modifier
     )
     LaunchedEffect(true) {
+        delay(3000)
         viewModel.token.collect { token ->
             if (token == null) {
                 navToLogin()
