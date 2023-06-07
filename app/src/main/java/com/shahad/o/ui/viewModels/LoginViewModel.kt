@@ -1,35 +1,38 @@
 package com.shahad.o.ui.viewModels
 
-import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.shahad.o.domain.usecases.AuthUseCase
-import com.shahad.o.domain.usecases.TokenUseCase
+import com.shahad.o.ui.states.SignInState
+import com.shahad.o.util.SignInResult
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val tokenUseCase: TokenUseCase,
-    private  val authUseCase: AuthUseCase
+    private  val authUseCase: AuthUseCase,
 ) : ViewModel() {
-    private val _googleState = mutableStateOf<AuthResult?>(null)
-    val googleState: State<AuthResult?> =_googleState
+    private val _signInState = MutableStateFlow(SignInState())
+    val signInState: MutableStateFlow<SignInState> =_signInState
 
 
     fun googleSignIn(credential: AuthCredential) {
         viewModelScope.launch {
             authUseCase.googleSignIn(credential).collect {
-                Log.i("O_APP_viewModel",it.toString())
-                _googleState.value = it
+                onSignInResult(it)
             }
         }
 
     }
-    fun onClickSignup(){
-        Log.i("O_APP","SIGNUP")
+
+    private fun onSignInResult(result: SignInResult){
+        _signInState.value =
+            SignInState(
+                isSuccess = result.data  != null,
+                error = result.error
+            )
+
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.shahad.o.util
+package com.shahad.o.ui.util
 
 import androidx.navigation.NavHostController
 import com.shahad.o.ui.navigation.Screens

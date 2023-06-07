@@ -2,21 +2,24 @@ package com.shahad.o.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shahad.o.domain.usecases.TokenUseCase
+import com.shahad.o.domain.usecases.UserInfoUseCase
+import com.shahad.o.ui.util.UserState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val tokenUseCase: TokenUseCase
-): ViewModel() {
+    private val userInfoUseCase: UserInfoUseCase
+) : ViewModel() {
 
-    val token = MutableStateFlow<String?>("")
+    val state = MutableStateFlow(UserState.Initial)
 
 
     init {
         viewModelScope.launch {
-            tokenUseCase.getToken().let {
-                token.value = it
+            state.value = if (userInfoUseCase.getUser() == null) {
+                UserState.NotFounded
+            } else {
+                UserState.Founded
             }
         }
     }

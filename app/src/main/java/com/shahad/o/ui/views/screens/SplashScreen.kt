@@ -1,9 +1,10 @@
 package com.shahad.o.ui.views.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -11,7 +12,8 @@ import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.viewModels.SplashViewModel
 import com.shahad.o.ui.views.widgets.SplashBody
-import com.shahad.o.util.go
+import com.shahad.o.ui.util.UserState
+import com.shahad.o.ui.util.go
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,7 +29,7 @@ fun NavGraphBuilder.splashRoute(
 
     composable(Screens.SplashScreen.route) {
         SplashScreen(
-            navToHome = ::navToLogin,
+            navToHome = ::navToHome,
             navToLogin = ::navToLogin
         )
     }
@@ -41,20 +43,16 @@ fun SplashScreen(
     navToHome: () -> Unit,
     navToLogin: () -> Unit,
 ) {
+    val state by viewModel.state.collectAsState()
     SplashBody(
         modifier = modifier
     )
-    LaunchedEffect(true) {
+    LaunchedEffect(state) {
         delay(3000)
-        viewModel.token.collect { token ->
-            if (token == null) {
-                navToLogin()
-            } else {
-                Log.i("TOKEN", token)
-                navToHome()
-            }
-
+        when(state){
+            UserState.Initial -> {}
+            UserState.Founded -> navToHome()
+            UserState.NotFounded -> navToLogin()
         }
-
     }
 }
