@@ -1,6 +1,5 @@
 package com.shahad.o.ui.views.widgets
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,7 +27,10 @@ import com.shahad.o.ui.util.circle
 
 @Composable
 fun HomeBody(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    imageUrl: String?,
+    onClickSetting: () -> Unit,
+    onClickStart: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -37,7 +39,11 @@ fun HomeBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val primaryColor = OTheme.colors.primary
-        HeaderHome(modifier = Modifier)
+        HeaderHome(
+            modifier = Modifier,
+            imageUrl = imageUrl,
+            onClickSetting = onClickSetting
+        )
 
         Box(
             modifier = Modifier
@@ -49,7 +55,7 @@ fun HomeBody(
             OCircle(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .clickable { Log.i("O_APP", "HI ") },
+                    .clickable { onClickStart() },
                 size = 125.dp
             ) {
                 circle(color = primaryColor, 30F)
@@ -79,7 +85,7 @@ fun HomeBody(
 fun HomeScreenPreview() {
     OTheme {
         Surface {
-            HomeBody()
+            HomeBody(imageUrl = "", onClickSetting = {  }, onClickStart = {  })
         }
     }
 }

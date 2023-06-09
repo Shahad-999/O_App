@@ -7,14 +7,26 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.viewModels.HomeViewModel
 import com.shahad.o.ui.views.widgets.HomeBody
+import org.koin.androidx.compose.koinViewModel
 
 
 fun NavGraphBuilder.homeRoute(
     navController: NavHostController
 ) {
+
+    fun navToSetting() =
+        navController.navigate(Screens.SettingScreen.route)
+
+    fun navToRecord() =
+        navController.navigate(Screens.RecordScreen.route)
+
     composable(Screens.HomeScreen.route) {
-        HomeScreen()
+        HomeScreen(
+            navToSetting = ::navToSetting,
+            navToRecord = ::navToRecord
+        )
     }
 }
 
@@ -22,9 +34,16 @@ fun NavGraphBuilder.homeRoute(
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = koinViewModel(),
+    navToRecord: () -> Unit,
+    navToSetting: () -> Unit,
 ) {
     HomeBody(
-        modifier = modifier
+        modifier = modifier,
+        imageUrl = viewModel.userData?.profilePictureUrl,
+        onClickStart = navToRecord,
+        onClickSetting = navToSetting,
+
     )
 
 }

@@ -2,7 +2,7 @@ package com.shahad.o.ui.views.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -27,12 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.shahad.o.R
 import com.shahad.o.ui.theme.OTheme
 
 @Composable
 fun HeaderHome(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    imageUrl: String?,
+    onClickSetting: () -> Unit
 ) {
     Column(
         modifier
@@ -51,12 +55,15 @@ fun HeaderHome(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Box(
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = "Profile",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(Color.White)
             )
+
 
             Spacer(modifier = Modifier.weight(1F))
 
@@ -65,6 +72,7 @@ fun HeaderHome(
                 contentDescription = null,
                 modifier = Modifier
                     .size(32.dp)
+                    .clickable { onClickSetting() }
             )
 
         }
@@ -102,7 +110,11 @@ fun HeaderHomePreview() {
                     .background(OTheme.colors.background),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                HeaderHome(modifier = Modifier)
+                HeaderHome(
+                    modifier = Modifier,
+                    imageUrl = "imageUrl",
+                    onClickSetting = {}
+                )
             }
         }
     }
