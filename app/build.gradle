@@ -79,6 +79,9 @@ dependencies {
     //google sign in
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
+    //fireStore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
 
     //navigation
     def nav_version = "2.5.3"
@@ -86,9 +89,6 @@ dependencies {
 
     //Koin
     implementation "io.insert-koin:koin-android:3.4.1"
-//    implementation 'org.koin:koin-android:3.4.1'
-//    implementation 'org.koin:koin-android-viewmodel:3.4.1'
-//    implementation 'org.koin:koin-androidx-scope:3.4.1'
     implementation("io.insert-koin:koin-androidx-compose:3.4.1")
 
 

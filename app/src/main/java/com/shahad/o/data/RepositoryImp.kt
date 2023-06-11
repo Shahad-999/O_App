@@ -3,6 +3,7 @@ package com.shahad.o.data
 import com.google.firebase.auth.AuthCredential
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.base.RemoteDataSource
+import com.shahad.o.util.Record
 import com.shahad.o.domain.Repository
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
@@ -48,5 +49,9 @@ class RepositoryImp(
 
     override fun getUser(): UserData?{
         return remoteDataSource.getUser()
+    }
+
+    override suspend fun getRecords(): List<Record> {
+        return remoteDataSource.getRecords()
     }
 }

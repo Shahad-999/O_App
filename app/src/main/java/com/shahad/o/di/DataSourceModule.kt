@@ -1,6 +1,9 @@
 package com.shahad.o.di
 //
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.DataStoreDataSourceImp
 import com.shahad.o.data.dataSources.RemoteDataSourceImp
@@ -10,6 +13,7 @@ import org.koin.dsl.module
 
 val dataSourceModule = module {
     single<FirebaseAuth> { FirebaseAuth.getInstance() }
+    single<FirebaseFirestore>{ Firebase.firestore}
     single<DataStoreDataSource> { DataStoreDataSourceImp(androidContext()) }
-    single<RemoteDataSource> { RemoteDataSourceImp(get()) }
+    single<RemoteDataSource> { RemoteDataSourceImp(get(),get()) }
 }
