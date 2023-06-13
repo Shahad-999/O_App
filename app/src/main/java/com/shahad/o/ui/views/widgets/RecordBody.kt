@@ -23,7 +23,9 @@ fun RecordBody(
     modifier: Modifier = Modifier,
     records: List<Record>,
     currentIndex: Int,
-    onClickBack: () -> Unit
+    onClickBack: () -> Unit,
+    onClickYes: () -> Unit,
+    onClickNo: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -57,8 +59,8 @@ fun RecordBody(
                     .weight(1F),
                 question = records[currentIndex].question,
                 imageUrl = records[currentIndex].imageUrl,
-                onClickYes = { },
-                onClickNo = {}
+                onClickYes = onClickYes,
+                onClickNo = onClickNo
             )
         }
 
@@ -88,7 +90,7 @@ fun RecordBodyPreview() {
                         "Are you happy ? ",
                         "https://avatars.githubusercontent.com/u/118618262?v=4"
                     ),
-                ), currentIndex = 2,  onClickBack = {}
+                ), currentIndex = 2,  onClickBack = {}, onClickNo = {}, onClickYes = {}
             )
         }
     }

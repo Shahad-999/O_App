@@ -55,7 +55,7 @@ fun QuestionPage(
         AsyncImage(
             model = imageUrl,
             contentDescription = "Profile",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.35F)
