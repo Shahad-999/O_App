@@ -57,18 +57,22 @@ fun QuestionsBodyPreview() {
                     Record(
                         0,
                         "Are you happy ? ",
-                        "https://avatars.githubusercontent.com/u/118618262?v=4"
+                        "https://avatars.githubusercontent.com/u/118618262?v=4",
+                         true,
+                        1
                     ),
                     Record(
                         1,
                         "Are you happy ? ",
-                        "https://avatars.githubusercontent.com/u/118618262?v=4"
-                    ),
+                        "https://avatars.githubusercontent.com/u/118618262?v=4",
+                        true,
+                        1),
                     Record(
                         3,
                         "Are you happy ? ",
-                        "https://avatars.githubusercontent.com/u/118618262?v=4"
-                    ),
+                        "https://avatars.githubusercontent.com/u/118618262?v=4",
+                        true,
+                        1),
                 ), currentIndex = 2,  onClickNo = {}, onClickYes = {}
             )
         }

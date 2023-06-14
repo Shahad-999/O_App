@@ -10,9 +10,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.shahad.o.BuildConfig
-import com.shahad.o.R
 
-//import org.koin.dsl.module
 
 class GoogleAuthUiClient(
     private val context: Context

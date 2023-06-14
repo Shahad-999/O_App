@@ -34,18 +34,19 @@ class RemoteDataSourceImp(
     }
 
     override suspend fun getRecords(): List<Record> {
-        val query = firestore.collection("current_recodes")
-            .whereEqualTo("uid",getUser()?.userId)
+        val query = firestore.collection("questions").document("default_questions")
             .get()
             .await()
-        val records = query.documents.firstOrNull()?.data?.toRecords()
+        val records = query.data?.toRecords()
         records.log()
-        return records ?: emptyList()
+        return  records ?: emptyList()
     }
 
+
+
     fun Map<String,Any>.toRecords(): List<Record> {
-        return (this["recordes"] as List<Map<String,String>>).mapIndexed { index, map ->
-            Record(order = index, question = map["question"] ?: "", imageUrl = map["imageUrl"] ?: "")
+        return (this["questions"] as List<Map<String,Any>>).mapIndexed { index, map ->
+            Record(order = index, question = (map["text"] ?: "") as String, imageUrl = (map["image"] ?: "") as String,weight = (map["weight"] ?: 1) as Long, positive_answer = (map["positive_answer"] ?: true) as Boolean)
         }
     }
     companion object{
