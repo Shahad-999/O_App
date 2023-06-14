@@ -43,8 +43,11 @@ class RemoteDataSourceImp(
     }
 
 
+    fun sentResult(){
 
-    fun Map<String,Any>.toRecords(): List<Record> {
+    }
+
+    private fun Map<String,Any>.toRecords(): List<Record> {
         return (this["questions"] as List<Map<String,Any>>).mapIndexed { index, map ->
             Record(order = index, question = (map["text"] ?: "") as String, imageUrl = (map["image"] ?: "") as String,weight = (map["weight"] ?: 1) as Long, positive_answer = (map["positive_answer"] ?: true) as Boolean)
         }
