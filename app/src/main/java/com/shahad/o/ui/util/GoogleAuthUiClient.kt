@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import com.shahad.o.BuildConfig
 import com.shahad.o.R
 
 //import org.koin.dsl.module
@@ -21,7 +22,7 @@ class GoogleAuthUiClient(
         val gso: GoogleSignInOptions =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestIdToken(context.getString(R.string.gcp_id))
+                .requestIdToken(BuildConfig.web_id)
                 .build()
 
         return GoogleSignIn.getClient(context, gso)

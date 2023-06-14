@@ -3,4 +3,6 @@
     <string name="Login">Login with Google</string>
     <string name="signup">Signup with Google</string>
     <string name="keep_smiling">KEEP SMILING</string>
+    <string name="great_day">Great Day</string>
+    <string name="bad_day">"Let’s make tomorrow better "</string>
 </resources>
