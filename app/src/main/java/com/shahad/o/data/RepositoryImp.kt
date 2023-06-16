@@ -5,6 +5,7 @@ import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.util.Record
 import com.shahad.o.domain.Repository
+import com.shahad.o.util.RecordResult
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
 import kotlinx.coroutines.flow.Flow
@@ -53,5 +54,9 @@ class RepositoryImp(
 
     override suspend fun getRecords(): List<Record> {
         return remoteDataSource.getRecords()
+    }
+
+    override fun sentResult(results: List<RecordResult>) {
+        remoteDataSource.sentResult(results)
     }
 }

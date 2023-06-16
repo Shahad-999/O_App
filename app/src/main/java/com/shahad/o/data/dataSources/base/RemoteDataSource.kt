@@ -3,6 +3,7 @@ package com.shahad.o.data.dataSources.base
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.shahad.o.util.Record
+import com.shahad.o.util.RecordResult
 import com.shahad.o.util.UserData
 
 
@@ -11,4 +12,5 @@ interface RemoteDataSource {
     fun signOut()
     fun getUser(): UserData?
     suspend fun getRecords(): List<Record>
+    fun sentResult(results: List<RecordResult>)
 }

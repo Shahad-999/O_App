@@ -9,7 +9,8 @@ class RecordsUseCase(
 ) : BaseUseCase() {
     suspend fun getRecords() = repository.getRecords()
 
-    suspend fun sendResult(results: List<RecordResult>) {
+    fun sendResult(results: List<RecordResult>) {
+        repository.sentResult(results)
     }
 
     private fun calcHappyPercent(results: List<RecordResult>): Float {
