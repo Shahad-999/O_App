@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +24,7 @@ import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.states.RecordScreenState
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.RecordsViewModel
+import com.shahad.o.ui.views.widgets.LoadingView
 import com.shahad.o.ui.views.widgets.QuestionsBody
 import com.shahad.o.ui.views.widgets.ResultBody
 import kotlinx.coroutines.delay
@@ -81,7 +81,7 @@ fun RecordScreen(
                 )
             }
 
-            RecordScreenState.LoadingQuestions -> CircularProgressIndicator()
+            RecordScreenState.LoadingQuestions -> LoadingView(modifier = Modifier)
             is RecordScreenState.Result -> {
                 with(records as RecordScreenState.Result) {
                     ResultBody(text = this.text, image = this.image, modifier = Modifier)

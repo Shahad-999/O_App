@@ -46,6 +46,14 @@ class OColors(
     shade1: Color,
     shade2: Color,
     shade3: Color,
+    gradiantColors: List<Color> = listOf(
+        primary,
+        primaryVariant,
+        primary,
+        primaryVariant,
+        primary,
+        primaryVariant,
+    ),
     isLight: Boolean
 ) {
 
@@ -63,6 +71,8 @@ class OColors(
     var shade2 by mutableStateOf(shade2)
         private set
     var shade3 by mutableStateOf(shade3)
+        private set
+    var gradiantColors by mutableStateOf(gradiantColors)
         private set
 
 
