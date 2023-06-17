@@ -41,6 +41,7 @@ fun HomeScreen(
     HomeBody(
         modifier = modifier,
         imageUrl = viewModel.userData?.profilePictureUrl,
+        name = viewModel.userData?.userName?.split(" ")?.firstOrNull(),
         onClickStart = navToRecord,
         onClickSetting = navToSetting,
 
