@@ -5,4 +5,7 @@
     <string name="keep_smiling">KEEP SMILING</string>
     <string name="great_day">Great Day</string>
     <string name="bad_day">"Let’s make tomorrow better "</string>
+    <string name="hello">Hello \n</string>
+    <string name="tell_me_about_your_day">Tell Me About\nYour Day</string>
+    <string name="start">START</string>
 </resources>
