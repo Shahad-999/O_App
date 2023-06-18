@@ -42,7 +42,12 @@ fun Smile(
     }
 
     LaunchedEffect(Unit) {
-        sweep.animateTo(-180F, animationSpec = tween(1000, easing = FastOutLinearInEasing))
+        sweep.animateTo(
+            targetValue = -180F,
+            animationSpec = tween(
+                durationMillis = 1000,
+                easing = FastOutLinearInEasing)
+        )
     }
 
 }

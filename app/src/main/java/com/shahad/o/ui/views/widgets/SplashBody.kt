@@ -18,7 +18,8 @@ import com.shahad.o.ui.theme.OTheme
 
 @Composable
 fun SplashBody(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCompleteFlipping: ()-> Unit
 ) {
     Column(
         modifier = modifier
@@ -31,6 +32,7 @@ fun SplashBody(
             modifier = Modifier
                 .padding(bottom = 20.dp)
                 .fillMaxWidth(0.19F),
+            onCompleteFlipping = onCompleteFlipping
         )
         Smile(
             modifier = Modifier
@@ -52,7 +54,7 @@ fun SplashBody(
 fun SplashScreenPreview() {
     OTheme {
         Surface {
-            SplashBody()
+            SplashBody(onCompleteFlipping = {})
         }
     }
 }
