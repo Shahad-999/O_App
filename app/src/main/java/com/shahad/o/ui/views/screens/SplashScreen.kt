@@ -2,7 +2,6 @@ package com.shahad.o.ui.views.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -12,7 +11,6 @@ import com.shahad.o.ui.util.UserState
 import com.shahad.o.ui.util.go
 import com.shahad.o.ui.viewModels.SplashViewModel
 import com.shahad.o.ui.views.widgets.SplashBody
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -43,14 +41,13 @@ fun SplashScreen(
 ) {
     val state = viewModel.state
     SplashBody(
-        modifier = modifier
-    )
-    LaunchedEffect(true) {
-        delay(3000)
-        when (state) {
-            UserState.Initial -> {}
-            UserState.Founded -> navToHome()
-            UserState.NotFounded -> navToLogin()
+        modifier = modifier,
+        onCompleteFlipping = {
+            when (state) {
+                UserState.Initial -> {}
+                UserState.Founded -> navToHome()
+                UserState.NotFounded -> navToLogin()
+            }
         }
-    }
+    )
 }
