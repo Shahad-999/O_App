@@ -73,7 +73,7 @@ fun ProfileSection(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = user.userId,
+                text = user.email ?: "Unknown email",
                 style = TextStyle(
                     color = Color.White.copy(alpha = 0.63F),
                     fontSize = 13.sp,

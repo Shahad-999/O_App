@@ -3,8 +3,8 @@ package com.shahad.o.data
 import com.google.firebase.auth.AuthCredential
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.base.RemoteDataSource
-import com.shahad.o.util.Record
 import com.shahad.o.domain.Repository
+import com.shahad.o.util.Record
 import com.shahad.o.util.RecordResult
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
@@ -27,11 +27,12 @@ class RepositoryImp(
 
             emit(
                 SignInResult(
-                    data = user?.let { it ->
+                    data = user?.let {
                         UserData(
                             userId = it.uid,
                             userName = it.displayName,
-                            profilePictureUrl = it.photoUrl?.toString()
+                            profilePictureUrl = it.photoUrl?.toString(),
+                            email = it.email
                         )
                     },
                     error = null
@@ -48,7 +49,7 @@ class RepositoryImp(
     }
 
 
-    override fun getUser(): UserData?{
+    override fun getUser(): UserData? {
         return remoteDataSource.getUser()
     }
 

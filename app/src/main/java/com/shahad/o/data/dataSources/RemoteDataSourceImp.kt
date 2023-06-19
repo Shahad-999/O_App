@@ -30,7 +30,8 @@ class RemoteDataSourceImp(
             UserData(
                 userId = uid,
                 userName = displayName,
-                profilePictureUrl = photoUrl?.toString()
+                profilePictureUrl = photoUrl?.toString(),
+                email = email
             )
         }
         return user

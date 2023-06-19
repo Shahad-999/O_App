@@ -11,9 +11,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.viewModels.SettingViewModel
 import com.shahad.o.ui.views.widgets.NavigationAppBar
 import com.shahad.o.ui.views.widgets.SettingBody
 import com.shahad.o.util.UserData
+import org.koin.androidx.compose.koinViewModel
 
 
 fun NavGraphBuilder.settingRoute(
@@ -33,11 +35,17 @@ fun NavGraphBuilder.settingRoute(
 fun SettingScreen(
     modifier: Modifier = Modifier,
     backToHome: () -> Unit,
+    viewModel: SettingViewModel = koinViewModel()
 ) {
     Scaffold(
         modifier = modifier,
         topBar = { NavigationAppBar(backToHome = backToHome) },
-        content = { SettingBody(modifier = Modifier.padding(it), userInfo = UserData.defaultUser) },
+        content = {
+            SettingBody(
+                modifier = Modifier.padding(it),
+                userInfo = viewModel.userData ?: UserData.defaultUser
+            )
+        },
         containerColor = OTheme.colors.background,
     )
 }
