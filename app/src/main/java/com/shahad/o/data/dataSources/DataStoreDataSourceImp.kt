@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
+import com.shahad.o.util.log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -48,9 +49,11 @@ class DataStoreDataSourceImp(
         }
     }
 
-    override suspend fun isDarkMode(): Flow<Boolean> {
+    override fun isDarkMode(): Flow<Boolean> {
         val preferencesKey = booleanPreferencesKey(THEME_MODE_KEY)
-        return context.dataStore.data.map { it[preferencesKey] == true }
+        return context.dataStore.data.map {
+            it[preferencesKey].log() == true
+        }
     }
 
     companion object {

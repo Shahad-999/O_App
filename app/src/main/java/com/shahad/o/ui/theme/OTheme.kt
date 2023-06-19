@@ -25,10 +25,9 @@ object OTheme {
 
 @Composable
 fun OTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-
     val colors = if (darkTheme) DarkThemeColors else LightThemeColors
 
-    val rememberedColors = remember { colors }.apply { update(colors) }
+    val rememberedColors = remember { colors.copy() }.apply { update(colors) }
 
     CompositionLocalProvider(
         LocalOColors provides rememberedColors,
