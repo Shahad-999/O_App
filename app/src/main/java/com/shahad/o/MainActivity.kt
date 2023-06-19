@@ -17,6 +17,7 @@ import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.views.screens.homeRoute
 import com.shahad.o.ui.views.screens.loginRoute
 import com.shahad.o.ui.views.screens.recordRoute
+import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.splashRoute
 
 class MainActivity : ComponentActivity() {
@@ -47,6 +48,7 @@ fun MainScreen(navController: NavHostController) {
             homeRoute(navController)
             loginRoute(navController)
             recordRoute(navController)
+            settingRoute(navController)
         }
     }
 }
