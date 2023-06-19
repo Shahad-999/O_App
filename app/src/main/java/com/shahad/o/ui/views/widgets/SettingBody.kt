@@ -2,7 +2,6 @@ package com.shahad.o.ui.views.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +22,8 @@ fun SettingBody(
         modifier = modifier
             .padding(horizontal = 24.dp)
     ) {
-        ProfileSection(modifier = Modifier.padding(vertical = 8.dp), user = userInfo)
+        ProfileSection(modifier = Modifier.padding(top = 8.dp, bottom = 16.dp), user = userInfo)
+
         SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
             OSwitch(
                 checked = true,
@@ -31,12 +31,10 @@ fun SettingBody(
             )
         }
 
-        Divider()
         SettingRow(
             icon = painterResource(id = R.drawable.question_mark),
             text = "Questions"
         )
-        Divider()
         SettingRow(
             icon = painterResource(id = R.drawable.notification),
             text = "Notifications"
@@ -46,22 +44,18 @@ fun SettingBody(
                 onCheckedChange = {},
             )
         }
-        Divider()
         SettingRow(
             icon = painterResource(id = R.drawable.pie_chart),
             text = "Statistic"
         )
-        Divider()
         SettingRow(
             icon = painterResource(id = R.drawable.calendar),
             text = "Calendar"
         )
-        Divider()
         SettingRow(
             icon = painterResource(id = R.drawable.sign_out),
             text = "Sign out"
         )
-        Divider()
     }
 }
 
