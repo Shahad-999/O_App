@@ -43,7 +43,9 @@ fun SettingScreen(
         content = {
             SettingBody(
                 modifier = Modifier.padding(it),
-                userInfo = viewModel.userData ?: UserData.defaultUser
+                userInfo = viewModel.userData ?: UserData.defaultUser,
+                isDarkTheme = viewModel.isDarkMode,
+                onUpdateTheme = viewModel::updateTheme
             )
         },
         containerColor = OTheme.colors.background,

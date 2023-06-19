@@ -13,4 +13,7 @@ interface Repository {
     fun getUser(): UserData?
     suspend fun getRecords(): List<Record>
     fun sentResult(results: List<RecordResult>)
+    suspend fun updateMode(isDark: Boolean)
+    suspend fun isDarkMode(): Flow<Boolean>
+
 }

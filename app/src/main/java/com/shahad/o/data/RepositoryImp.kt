@@ -60,4 +60,12 @@ class RepositoryImp(
     override fun sentResult(results: List<RecordResult>) {
         remoteDataSource.sentResult(results)
     }
+
+    override suspend fun updateMode(isDark: Boolean) {
+        datastoreDataSource.updateMode(isDark)
+    }
+
+    override suspend fun isDarkMode(): Flow<Boolean> {
+        return datastoreDataSource.isDarkMode()
+    }
 }

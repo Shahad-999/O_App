@@ -2,22 +2,25 @@ package com.shahad.o.ui.views.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shahad.o.R
-import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.util.UserData
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
 fun SettingBody(
     modifier: Modifier = Modifier,
-    userInfo: UserData
+    userInfo: UserData,
+    onUpdateTheme: (Boolean) -> Unit,
+    isDarkTheme: StateFlow<Boolean>
 ) {
+    val isDark by isDarkTheme.collectAsState()
     Column(
         modifier = modifier
             .padding(horizontal = 24.dp)
@@ -26,8 +29,8 @@ fun SettingBody(
 
         SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
             OSwitch(
-                checked = true,
-                onCheckedChange = {},
+                checked = isDark,
+                onCheckedChange = onUpdateTheme,
             )
         }
 
@@ -56,17 +59,6 @@ fun SettingBody(
             icon = painterResource(id = R.drawable.sign_out),
             text = "Sign out"
         )
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun SettingPreview() {
-    OTheme {
-        Surface {
-            SettingBody(userInfo = UserData.defaultUser)
-        }
     }
 }
 
