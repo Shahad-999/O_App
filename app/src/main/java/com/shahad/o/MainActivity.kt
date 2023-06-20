@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.MainViewModel
@@ -25,6 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()

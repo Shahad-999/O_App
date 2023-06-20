@@ -88,6 +88,8 @@ dependencies {
     //fireStore
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    //notifications
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
 
     //navigation
     def nav_version = "2.5.3"
