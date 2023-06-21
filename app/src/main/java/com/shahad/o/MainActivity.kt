@@ -19,6 +19,7 @@ import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.MainViewModel
 import com.shahad.o.ui.views.screens.homeRoute
 import com.shahad.o.ui.views.screens.loginRoute
+import com.shahad.o.ui.views.screens.questionsRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.splashRoute
@@ -60,6 +61,7 @@ fun MainScreen(
                 loginRoute(navController)
                 recordRoute(navController)
                 settingRoute(navController)
+                questionsRoute(navController)
             }
         }
     }

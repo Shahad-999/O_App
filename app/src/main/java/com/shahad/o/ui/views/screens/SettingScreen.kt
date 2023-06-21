@@ -6,9 +6,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.shahad.o.R
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.SettingViewModel
@@ -22,9 +24,12 @@ fun NavGraphBuilder.settingRoute(
     navController: NavHostController
 ) {
 
+    fun navToQuestionScreen() = navController.navigate(Screens.QuestionsScreen.route)
+
     composable(Screens.SettingScreen.route) {
         SettingScreen(
             backToHome = navController::navigateUp,
+            navToQuestionsScreen = ::navToQuestionScreen
         )
     }
 }
@@ -35,11 +40,15 @@ fun NavGraphBuilder.settingRoute(
 fun SettingScreen(
     modifier: Modifier = Modifier,
     backToHome: () -> Unit,
-    viewModel: SettingViewModel = koinViewModel()
+    viewModel: SettingViewModel = koinViewModel(),
+    navToQuestionsScreen: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { NavigationAppBar(backToHome = backToHome) },
+        topBar = { NavigationAppBar(
+            text =  stringResource(R.string.settings),
+            backToHome = backToHome,
+        ) },
         content = {
             SettingBody(
                 modifier = Modifier.padding(it),
@@ -47,7 +56,8 @@ fun SettingScreen(
                 isDarkTheme = viewModel.isDarkMode,
                 inThemeChange = viewModel::updateTheme,
                 isNotificationsOn = viewModel.isNotificationsOn,
-                onNotificationsStatusChange = viewModel::updateNotificationsStatus
+                onNotificationsStatusChange = viewModel::updateNotificationsStatus,
+                onClickQuestions = navToQuestionsScreen
             )
         },
         containerColor = OTheme.colors.background,

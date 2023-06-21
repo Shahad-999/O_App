@@ -20,7 +20,8 @@ fun SettingBody(
     isDarkTheme: StateFlow<Boolean>,
     inThemeChange: (Boolean) -> Unit,
     onNotificationsStatusChange: (Boolean) -> Unit,
-    isNotificationsOn: StateFlow<Boolean>
+    isNotificationsOn: StateFlow<Boolean>,
+    onClickQuestions: () -> Unit
 ) {
     val isDark by isDarkTheme.collectAsState()
     val isNotificationsTurnOn by isNotificationsOn.collectAsState()
@@ -39,7 +40,8 @@ fun SettingBody(
 
         SettingRow(
             icon = painterResource(id = R.drawable.question_mark),
-            text = "Questions"
+            text = "Questions",
+            onClick = onClickQuestions
         )
         SettingRow(
             icon = painterResource(id = R.drawable.notification),

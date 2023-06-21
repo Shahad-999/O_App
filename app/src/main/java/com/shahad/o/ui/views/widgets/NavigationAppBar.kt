@@ -2,6 +2,7 @@ package com.shahad.o.ui.views.widgets
 
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -26,13 +27,15 @@ import com.shahad.o.ui.theme.OTheme
 @Composable
 fun NavigationAppBar(
     modifier: Modifier = Modifier,
-    backToHome: () -> Unit
+    text: String,
+    backToHome: () -> Unit,
+    actions: @Composable() (RowScope.() -> Unit) = {},
 ) {
     TopAppBar(
         modifier = modifier.padding(horizontal = 24.dp),
         title = {
             Text(
-                text = "Setting",
+                text = text,
                 modifier = Modifier.padding(start = 8.dp),
                 style = TextStyle(
                     color = OTheme.colors.shade1,
@@ -53,7 +56,8 @@ fun NavigationAppBar(
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = Color.Transparent
-        )
+        ),
+        actions = actions
     )
 }
 
@@ -63,7 +67,10 @@ fun NavigationAppBar(
 fun NavigationAppBarPreview() {
     OTheme {
         Surface {
-            NavigationAppBar(backToHome = {})
+            NavigationAppBar(
+                text = "Screen Title",
+                backToHome = {},
+            )
         }
     }
 }
