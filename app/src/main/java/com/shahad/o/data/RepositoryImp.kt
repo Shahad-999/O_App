@@ -26,7 +26,7 @@ class RepositoryImp(
     override fun googleSignIn(credential: AuthCredential): Flow<SignInResult> {
         return flow {
             val user = remoteDataSource.signIn(credential).user
-
+            user?.let{ createUserOwnQuestion(it.uid) }
             emit(
                 SignInResult(
                     data = user?.let {
@@ -50,6 +50,10 @@ class RepositoryImp(
         }
     }
 
+
+    private suspend fun createUserOwnQuestion(uid: String){
+        remoteDataSource.createUserOwnQuestion(uid)
+    }
 
     override fun getUser(): UserData? {
         return remoteDataSource.getUser()

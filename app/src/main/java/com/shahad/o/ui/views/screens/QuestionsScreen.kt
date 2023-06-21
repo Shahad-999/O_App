@@ -22,7 +22,6 @@ import com.shahad.o.util.log
 fun NavGraphBuilder.questionsRoute(
     navController: NavHostController
 ) {
-
     composable(Screens.QuestionsScreen.route) {
         QuestionsScreen(
             backToHome = navController::navigateUp,

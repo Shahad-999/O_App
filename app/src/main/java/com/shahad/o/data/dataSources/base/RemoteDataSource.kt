@@ -13,4 +13,6 @@ interface RemoteDataSource {
     fun getUser(): UserData?
     suspend fun getRecords(): List<Record>
     fun sentResult(results: List<RecordResult>)
+
+    suspend fun createUserOwnQuestion(uid: String)
 }
