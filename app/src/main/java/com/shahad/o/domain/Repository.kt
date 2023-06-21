@@ -16,4 +16,10 @@ interface Repository {
     suspend fun updateMode(isDark: Boolean)
     fun isDarkMode(): Flow<Boolean>
 
+    suspend fun storeNotificationsStatus(isTurnON: Boolean)
+
+    fun changeNotificationsStatus(isTurnON: Boolean)
+
+    fun isNotificationsTurnIn(): Flow<Boolean>
+
 }

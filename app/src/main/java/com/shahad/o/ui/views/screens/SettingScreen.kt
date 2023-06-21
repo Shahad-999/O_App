@@ -45,7 +45,9 @@ fun SettingScreen(
                 modifier = Modifier.padding(it),
                 userInfo = viewModel.userData ?: UserData.defaultUser,
                 isDarkTheme = viewModel.isDarkMode,
-                onUpdateTheme = viewModel::updateTheme
+                inThemeChange = viewModel::updateTheme,
+                isNotificationsOn = viewModel.isNotificationsOn,
+                onNotificationsStatusChange = viewModel::updateNotificationsStatus
             )
         },
         containerColor = OTheme.colors.background,

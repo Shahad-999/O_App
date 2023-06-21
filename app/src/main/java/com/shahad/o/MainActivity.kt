@@ -22,11 +22,15 @@ import com.shahad.o.ui.views.screens.loginRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.splashRoute
+import com.shahad.o.util.ReminderManger
 import org.koin.androidx.compose.koinViewModel
+import org.koin.java.KoinJavaComponent.inject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseMessaging.getInstance().subscribeToTopic("all")
+        val reminderManger: ReminderManger by inject(ReminderManger::class.java)
+        reminderManger.createNotificationsChannels()
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()

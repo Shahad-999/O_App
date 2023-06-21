@@ -8,7 +8,8 @@ val repositoryModule = module {
     single<Repository> {
         RepositoryImp(
             datastoreDataSource = get(),
-            remoteDataSource = get()
+            remoteDataSource = get(),
+            reminderManger = get()
         )
     }
 }

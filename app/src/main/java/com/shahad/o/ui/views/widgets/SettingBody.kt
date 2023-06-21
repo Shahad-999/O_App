@@ -17,10 +17,13 @@ import kotlinx.coroutines.flow.StateFlow
 fun SettingBody(
     modifier: Modifier = Modifier,
     userInfo: UserData,
-    onUpdateTheme: (Boolean) -> Unit,
-    isDarkTheme: StateFlow<Boolean>
+    isDarkTheme: StateFlow<Boolean>,
+    inThemeChange: (Boolean) -> Unit,
+    onNotificationsStatusChange: (Boolean) -> Unit,
+    isNotificationsOn: StateFlow<Boolean>
 ) {
     val isDark by isDarkTheme.collectAsState()
+    val isNotificationsTurnOn by isNotificationsOn.collectAsState()
     Column(
         modifier = modifier
             .padding(horizontal = 24.dp)
@@ -30,7 +33,7 @@ fun SettingBody(
         SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
             OSwitch(
                 checked = isDark,
-                onCheckedChange = onUpdateTheme,
+                onCheckedChange = inThemeChange,
             )
         }
 
@@ -43,8 +46,8 @@ fun SettingBody(
             text = "Notifications"
         ) {
             OSwitch(
-                checked = true,
-                onCheckedChange = {},
+                checked = isNotificationsTurnOn,
+                onCheckedChange = onNotificationsStatusChange,
             )
         }
         SettingRow(

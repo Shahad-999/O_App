@@ -6,6 +6,7 @@ import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.domain.Repository
 import com.shahad.o.util.Record
 import com.shahad.o.util.RecordResult
+import com.shahad.o.util.ReminderManger
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,8 @@ import kotlinx.coroutines.flow.flow
 
 class RepositoryImp(
     private val datastoreDataSource: DataStoreDataSource,
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val reminderManger: ReminderManger
 ) : Repository {
 
     override fun signOut() {
@@ -68,4 +70,17 @@ class RepositoryImp(
     override fun isDarkMode(): Flow<Boolean> {
         return datastoreDataSource.isDarkMode()
     }
+
+    override fun changeNotificationsStatus(isTurnON: Boolean) {
+        if(isTurnON) reminderManger.startAllNotifications() else reminderManger.stopAllNotifications()
+    }
+
+    override suspend fun storeNotificationsStatus(isTurnON: Boolean) {
+        datastoreDataSource.updateNotificationStatus(isTurnON)
+    }
+
+    override fun isNotificationsTurnIn(): Flow<Boolean> {
+        return datastoreDataSource.isNotificationsTurnOn()
+    }
+
 }

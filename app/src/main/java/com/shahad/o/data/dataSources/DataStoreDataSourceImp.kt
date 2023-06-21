@@ -56,8 +56,23 @@ class DataStoreDataSourceImp(
         }
     }
 
+    override suspend fun updateNotificationStatus(isTurn: Boolean) {
+        val preferencesKey = booleanPreferencesKey(NOTIFICATION_KEY)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = isTurn
+        }
+    }
+
+    override fun isNotificationsTurnOn(): Flow<Boolean> {
+        val preferencesKey = booleanPreferencesKey(NOTIFICATION_KEY)
+        return context.dataStore.data.map {
+            it[preferencesKey].log() == true
+        }
+    }
+
     companion object {
         private const val TOKEN_KEY = "TOKEN"
         private const val THEME_MODE_KEY = "THEME_MODE"
+        private const val NOTIFICATION_KEY = "NOTIFICATION"
     }
 }
