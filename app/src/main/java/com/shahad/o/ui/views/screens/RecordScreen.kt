@@ -25,7 +25,7 @@ import com.shahad.o.ui.states.RecordScreenState
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.RecordsViewModel
 import com.shahad.o.ui.views.widgets.LoadingView
-import com.shahad.o.ui.views.widgets.QuestionsBody
+import com.shahad.o.ui.views.widgets.QuestionsView
 import com.shahad.o.ui.views.widgets.ResultBody
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
@@ -72,7 +72,7 @@ fun RecordScreen(
             }
 
             is RecordScreenState.LoadedQuestions -> {
-                QuestionsBody(
+                QuestionsView(
                     modifier = Modifier,
                     questions = (records as RecordScreenState.LoadedQuestions).questions,
                     currentIndex = currentIndex,

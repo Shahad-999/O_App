@@ -15,6 +15,7 @@ import com.shahad.o.R
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.views.widgets.NavigationAppBar
+import com.shahad.o.ui.views.widgets.QuestionsBody
 import com.shahad.o.util.log
 
 
@@ -54,7 +55,7 @@ fun QuestionsScreen(
             )
         },
         content = {
-
+              QuestionsBody(questions = listOf())
         },
         containerColor = OTheme.colors.background,
     )
