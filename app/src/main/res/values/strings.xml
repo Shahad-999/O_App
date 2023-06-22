@@ -8,4 +8,9 @@
     <string name="hello">Hello \n</string>
     <string name="tell_me_about_your_day">Tell Me About\nYour Day</string>
     <string name="start">START</string>
+    <string name="reminders_notification_channel_id">channel_id\n</string>
+    <string name="reminders_notification_channel_name">morning\n</string>
+    <string name="save">Save</string>
+    <string name="settings">Settings</string>
+    <string name="questions">Questions</string>
 </resources>

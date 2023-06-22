@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shahad.o.R
 import com.shahad.o.domain.usecases.RecordsUseCase
+import com.shahad.o.domain.usecases.ResultsUseCase
 import com.shahad.o.ui.states.RecordScreenState
 import com.shahad.o.util.Record
 import com.shahad.o.util.RecordResult
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RecordsViewModel(
-    private val recordsUseCase: RecordsUseCase
+    private val recordsUseCase: RecordsUseCase,
+    private val resultsUseCase: ResultsUseCase,
 ) : ViewModel() {
 
     private val _records = MutableStateFlow<RecordScreenState>(RecordScreenState.Initial)
@@ -61,12 +63,12 @@ class RecordsViewModel(
 
     private fun onQuestionsEnded() {
         viewModelScope.launch {
-            _records.value = if (recordsUseCase.isGoodDay(results)) {
+            _records.value = if (resultsUseCase.isGoodDay(results)) {
                 RecordScreenState.Result(image = R.drawable.greate_day, text = R.string.great_day)
             } else {
                 RecordScreenState.Result(image = R.drawable.white_heart, text = R.string.bad_day)
             }
-            recordsUseCase.sendResult(results)
+            resultsUseCase.sendResult(results)
         }
     }
 

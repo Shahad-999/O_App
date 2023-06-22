@@ -17,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -160,6 +162,37 @@ fun OButtonPreview() {
     }
 }
 
+@Composable
+fun OSwitch(
+    modifier: Modifier = Modifier,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit ,
+){
+    Switch(
+        modifier = modifier,
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        colors = SwitchDefaults.colors(
+            checkedThumbColor = OTheme.colors.primary,
+            checkedTrackColor = Color(0xFFAED1E7),
+            uncheckedThumbColor = Color(0xFF565859),
+            uncheckedTrackColor = Color(0xFFAED1E7),
+            uncheckedBorderColor = Color.Transparent
+        ),
+    )
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun OSwitchPreview() {
+    OTheme {
+        Surface {
+            OSwitch(checked = true, onCheckedChange = {})
+        }
+    }
+}
+
 
 @Preview
 @Composable
@@ -176,7 +209,6 @@ fun OutlineOButtonPreview() {
 }
 
 
-
 @Preview
 @Composable
 fun StartButtonPreview() {
@@ -187,4 +219,5 @@ fun StartButtonPreview() {
         }
     }
 }
+
 

@@ -30,13 +30,27 @@ class RemoteDataSourceImp(
             UserData(
                 userId = uid,
                 userName = displayName,
-                profilePictureUrl = photoUrl?.toString()
+                profilePictureUrl = photoUrl?.toString(),
+                email = email
             )
         }
         return user
     }
 
     override suspend fun getRecords(): List<Record> {
+        getUser()?.userId?.let {
+            val query = firestore.collection("questions")
+                .document(it)
+                .get()
+                .await()
+            val records = query.data?.toRecords()
+            records.log()
+            return records ?: emptyList()
+        }
+        return emptyList()
+    }
+
+    private suspend fun getDefaultRecords(): List<Record> {
         val query = firestore.collection("questions").document("default_questions")
             .get()
             .await()
@@ -58,6 +72,22 @@ class RemoteDataSourceImp(
                     SetOptions.merge()
                 )
         }
+    }
+
+    override suspend fun createUserOwnQuestion(uid: String) {
+        sentQuestions(getDefaultRecords(),uid)
+    }
+
+    override fun updateQuestions(questions: List<Record>) {
+        getUser()?.userId?.let {
+            sentQuestions(questions,it)
+        }
+    }
+
+    private fun sentQuestions(questions: List<Record>, uid: String){
+        firestore.collection("questions")
+            .document(uid)
+            .set(questions.toMap())
     }
 
     private fun List<RecordResult>.toFirebaseResults(): HashMap<String, Any> {
@@ -84,6 +114,20 @@ class RemoteDataSourceImp(
                 positive_answer = (map["positive_answer"] ?: true) as Boolean
             )
         }
+    }
+
+    private fun List<Record>.toMap(): HashMap<String, List<HashMap<String, Any>>> {
+        return hashMapOf(
+            "questions" to map {
+                hashMapOf(
+                    "text" to it.question,
+                    "image" to it.imageUrl,
+                    "order" to it.order,
+                    "weight" to it.weight,
+                    "positive_answer" to it.positive_answer
+                )
+            }
+        )
     }
 
     companion object {

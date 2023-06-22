@@ -54,7 +54,7 @@ class OColors(
         primary,
         primaryVariant,
     ),
-    isLight: Boolean
+    var isLight: Boolean
 ) {
 
     var primary by mutableStateOf(primary)
@@ -85,9 +85,31 @@ class OColors(
         shade2 = colors.shade2
         shade3 = colors.shade3
     }
-
 }
 
+fun OColors.copy(): OColors {
+    val primary = this.primary
+    val primaryVariant = this.primaryVariant
+    val background = this.background
+    val card = this.card
+    val shade1 = this.shade1
+    val shade2 = this.shade2
+    val shade3 = this.shade3
+    val gradiantColors = this.gradiantColors.toList()
+    val isLight = this.isLight
+
+    return OColors(
+        primary = primary,
+        primaryVariant = primaryVariant,
+        background = background,
+        card = card,
+        shade1 = shade1,
+        shade2 = shade2,
+        shade3 = shade3,
+        gradiantColors = gradiantColors,
+        isLight = isLight
+    )
+}
 internal val LocalOColors = staticCompositionLocalOf { LightThemeColors }
 
 

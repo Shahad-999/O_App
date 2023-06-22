@@ -44,7 +44,6 @@ fun HomeScreen(
         name = viewModel.userData?.userName?.split(" ")?.firstOrNull(),
         onClickStart = navToRecord,
         onClickSetting = navToSetting,
-
     )
 
 }
