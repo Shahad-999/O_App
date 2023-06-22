@@ -20,7 +20,7 @@ fun QuestionsBody(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
     ) {
         items(
             questions,
