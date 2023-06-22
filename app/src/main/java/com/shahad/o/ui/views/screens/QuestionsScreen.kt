@@ -22,7 +22,6 @@ import com.shahad.o.ui.viewModels.QuestionsViewModel
 import com.shahad.o.ui.views.widgets.LoadingView
 import com.shahad.o.ui.views.widgets.NavigationAppBar
 import com.shahad.o.ui.views.widgets.QuestionsBody
-import com.shahad.o.util.log
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -45,6 +44,7 @@ fun QuestionsScreen(
     questionsViewModel: QuestionsViewModel = koinViewModel()
 ) {
     val questions by questionsViewModel.records.collectAsState()
+    val isChange by questionsViewModel.isChanged.collectAsState()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -52,12 +52,11 @@ fun QuestionsScreen(
                 text = stringResource(R.string.questions),
                 backToHome = backToHome,
                 actions = {
-                    if (true) {
+                    if (isChange) {
                         Text(
                             text = stringResource(R.string.save),
                             modifier = Modifier
                                 .clickable {
-                                    "SAVE".log()
                                     questionsViewModel.onClickSave()
                                 }
                         )

@@ -18,6 +18,10 @@ class QuestionsViewModel(
     private val _records = MutableStateFlow<QuestionsState>(QuestionsState.Initial)
     val records: StateFlow<QuestionsState> = _records.asStateFlow()
 
+    private val _isChanged = MutableStateFlow(false)
+    val isChanged: StateFlow<Boolean> = _isChanged.asStateFlow()
+
+
     init {
         getRecords()
     }
@@ -39,7 +43,9 @@ class QuestionsViewModel(
             this[order].question = question
         }
         _records.value = QuestionsState.LoadedQuestions(updatedList)
+        _isChanged.value = true
     }
+
     fun onPositiveAnswerChange(
         order: Int,
         positiveAnswer: Boolean,
@@ -48,12 +54,14 @@ class QuestionsViewModel(
             this[order].positive_answer = positiveAnswer
         }
         _records.value = QuestionsState.LoadedQuestions(updatedList)
+        _isChanged.value = true
     }
 
     fun onClickSave(){
         if(_records.value is QuestionsState.LoadedQuestions){
             updateQuestionsUseCase.updateQuestions((_records.value as QuestionsState.LoadedQuestions).questions)
         }
+        _isChanged.value = false
     }
 
 }
