@@ -21,7 +21,8 @@ fun SettingBody(
     inThemeChange: (Boolean) -> Unit,
     onNotificationsStatusChange: (Boolean) -> Unit,
     isNotificationsOn: StateFlow<Boolean>,
-    onClickQuestions: () -> Unit
+    onClickQuestions: () -> Unit,
+    onClickSignOut: () -> Unit
 ) {
     val isDark by isDarkTheme.collectAsState()
     val isNotificationsTurnOn by isNotificationsOn.collectAsState()
@@ -62,7 +63,8 @@ fun SettingBody(
         )
         SettingRow(
             icon = painterResource(id = R.drawable.sign_out),
-            text = "Sign out"
+            text = "Sign out",
+            onClick = onClickSignOut
         )
     }
 }

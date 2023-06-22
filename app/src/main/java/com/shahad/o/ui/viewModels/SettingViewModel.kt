@@ -3,6 +3,7 @@ package com.shahad.o.ui.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shahad.o.domain.usecases.NotificationsUseCase
+import com.shahad.o.domain.usecases.SignOutUseCase
 import com.shahad.o.domain.usecases.ThemeUseCase
 import com.shahad.o.domain.usecases.UserInfoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 class SettingViewModel(
     userInfoUseCase: UserInfoUseCase,
     private val themeUseCase: ThemeUseCase,
-    private val notificationsUseCase: NotificationsUseCase
+    private val notificationsUseCase: NotificationsUseCase,
+    private val signOutUseCase: SignOutUseCase
 ) : ViewModel() {
 
     val userData = userInfoUseCase.getUser()
@@ -21,6 +23,9 @@ class SettingViewModel(
 
     private val _isNotificationsOn = MutableStateFlow(true)
     val isNotificationsOn: StateFlow<Boolean> = _isNotificationsOn
+
+    private val _isSignOut = MutableStateFlow(false)
+    val isSignOut: StateFlow<Boolean> = _isSignOut
 
     init {
         fetchThemeMode()
@@ -52,5 +57,10 @@ class SettingViewModel(
         viewModelScope.launch {
             notificationsUseCase.storeNotificationsStatus(isTurnOn)
         }
+    }
+
+    fun onClickSignOut(){
+        signOutUseCase.signOut()
+        _isSignOut.value = true
     }
 }

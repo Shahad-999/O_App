@@ -4,6 +4,7 @@ import com.shahad.o.domain.usecases.AuthUseCase
 import com.shahad.o.domain.usecases.NotificationsUseCase
 import com.shahad.o.domain.usecases.RecordsUseCase
 import com.shahad.o.domain.usecases.ResultsUseCase
+import com.shahad.o.domain.usecases.SignOutUseCase
 import com.shahad.o.domain.usecases.ThemeUseCase
 import com.shahad.o.domain.usecases.UpdateQuestionsUseCase
 import com.shahad.o.domain.usecases.UserInfoUseCase
@@ -17,4 +18,5 @@ val useCasesModule = module {
     single { ThemeUseCase(get()) }
     single { NotificationsUseCase(get()) }
     single { UpdateQuestionsUseCase(get()) }
+    single { SignOutUseCase(get()) }
 }
