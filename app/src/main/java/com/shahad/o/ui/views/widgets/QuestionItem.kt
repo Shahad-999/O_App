@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +35,9 @@ import com.shahad.o.util.Record
 @Composable
 fun QuestionItem(
     modifier: Modifier = Modifier,
-    question: Record
+    question: Record,
+    onQuestionChange: (Int, String) -> Unit,
+    onPositiveAnswerChange: (Int, Boolean) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -61,15 +62,17 @@ fun QuestionItem(
                 .fillMaxHeight()
         ) {
             BasicTextField(
-                value = question.question+ question.question,
-                onValueChange = {} ,
+                value = question.question,
+                onValueChange = {
+                    onQuestionChange(question.order,it)
+                } ,
                 textStyle = TextStyle(
                     color = OTheme.colors.shade1,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start
                 ),
-                maxLines = 3
+                maxLines = 3,
             )
             Spacer(modifier = Modifier.weight(1F, true))
             Row(
@@ -88,7 +91,7 @@ fun QuestionItem(
                 Spacer(modifier = Modifier.weight(1F))
                 OSwitch(
                     checked = question.positive_answer,
-                    onCheckedChange = {}
+                    onCheckedChange = { onPositiveAnswerChange(question.order, it) }
                 )
             }
         }
@@ -103,7 +106,9 @@ fun QuestionItemPreview() {
     OTheme {
         Surface {
             QuestionItem(
-                question = Record(1, "Do you pray and thank god for this day ?Do you pray and thank god for this day ? ", "", true, 1)
+                question = Record(1, "Do you pray and thank god for this day ?Do you pray and thank god for this day ? ", "", true, 1),
+                onQuestionChange = { _,_ ->  },
+                onPositiveAnswerChange = { _,_ ->  }
             )
         }
     }

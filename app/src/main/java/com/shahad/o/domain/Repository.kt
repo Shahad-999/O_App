@@ -21,5 +21,6 @@ interface Repository {
     fun changeNotificationsStatus(isTurnON: Boolean)
 
     fun isNotificationsTurnIn(): Flow<Boolean>
+    fun updateQuestions(questions: List<Record>)
 
 }

@@ -75,7 +75,16 @@ class RemoteDataSourceImp(
     }
 
     override suspend fun createUserOwnQuestion(uid: String) {
-        val questions = getDefaultRecords()
+        sentQuestions(getDefaultRecords(),uid)
+    }
+
+    override fun updateQuestions(questions: List<Record>) {
+        getUser()?.userId?.let {
+            sentQuestions(questions,it)
+        }
+    }
+
+    private fun sentQuestions(questions: List<Record>, uid: String){
         firestore.collection("questions")
             .document(uid)
             .set(questions.toMap())

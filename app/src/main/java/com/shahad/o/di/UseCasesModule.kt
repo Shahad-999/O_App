@@ -5,6 +5,7 @@ import com.shahad.o.domain.usecases.NotificationsUseCase
 import com.shahad.o.domain.usecases.RecordsUseCase
 import com.shahad.o.domain.usecases.ResultsUseCase
 import com.shahad.o.domain.usecases.ThemeUseCase
+import com.shahad.o.domain.usecases.UpdateQuestionsUseCase
 import com.shahad.o.domain.usecases.UserInfoUseCase
 import org.koin.dsl.module
 
@@ -15,4 +16,5 @@ val useCasesModule = module {
     single { ResultsUseCase(get()) }
     single { ThemeUseCase(get()) }
     single { NotificationsUseCase(get()) }
+    single { UpdateQuestionsUseCase(get()) }
 }

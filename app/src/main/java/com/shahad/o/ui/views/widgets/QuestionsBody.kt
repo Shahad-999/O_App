@@ -16,7 +16,9 @@ import com.shahad.o.util.Record
 @Composable
 fun QuestionsBody(
     modifier: Modifier = Modifier,
-    questions: List<Record>
+    questions: List<Record>,
+    onQuestionChange: (Int,String) -> Unit,
+    onPositiveAnswerChange: (Int,Boolean) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -25,7 +27,12 @@ fun QuestionsBody(
         items(
             questions,
         ) {
-            QuestionItem(modifier = Modifier, question = it)
+            QuestionItem(
+                modifier = Modifier,
+                question = it,
+                onQuestionChange = onQuestionChange,
+                onPositiveAnswerChange = onPositiveAnswerChange
+            )
         }
     }
 }
@@ -42,7 +49,13 @@ fun QuestionsBodyPreview() {
                     Record(1, "Are you happy? ", "", true, 1),
                     Record(1, "Are you happy? ", "", true, 1),
                     Record(1, "Are you happy? ", "", true, 1),
-                )
+                ),
+                onQuestionChange = { _, _ ->
+
+                },
+                onPositiveAnswerChange = { _, _ ->
+
+                },
             )
         }
     }

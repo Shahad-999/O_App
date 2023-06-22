@@ -56,7 +56,10 @@ fun QuestionsScreen(
                         Text(
                             text = stringResource(R.string.save),
                             modifier = Modifier
-                                .clickable { "SAVE".log() }
+                                .clickable {
+                                    "SAVE".log()
+                                    questionsViewModel.onClickSave()
+                                }
                         )
                     }
                 }
@@ -69,7 +72,9 @@ fun QuestionsScreen(
             is QuestionsState.LoadedQuestions -> {
                 QuestionsBody(
                     modifier = Modifier.padding(it),
-                    questions = (questions as QuestionsState.LoadedQuestions).questions
+                    questions = (questions as QuestionsState.LoadedQuestions).questions,
+                    onQuestionChange = questionsViewModel::onQuestionChange,
+                    onPositiveAnswerChange = questionsViewModel::onPositiveAnswerChange
                 )
             }
 

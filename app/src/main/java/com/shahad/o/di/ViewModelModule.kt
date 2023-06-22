@@ -17,5 +17,5 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { RecordsViewModel(get(),get()) }
     viewModel { SettingViewModel(get(),get(),get()) }
-    viewModel { QuestionsViewModel(get()) }
+    viewModel { QuestionsViewModel(get(),get()) }
 }

@@ -87,4 +87,8 @@ class RepositoryImp(
         return datastoreDataSource.isNotificationsTurnOn()
     }
 
+    override fun updateQuestions(questions: List<Record>) {
+        remoteDataSource.updateQuestions(questions)
+    }
+
 }
