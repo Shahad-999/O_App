@@ -3,9 +3,7 @@ package com.shahad.o.data.dataSources
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.util.Record
 import com.shahad.o.util.Results
@@ -63,14 +61,9 @@ class RemoteDataSourceImp(
     override fun sentResult(results: Results) {
         getUser()?.let {
             fireStore.collection("users_records").document(it.userId)
-                .set(
-                    hashMapOf(
-                        "daily_records_results" to FieldValue.arrayUnion(
-                            results.toFirebaseResults()
-                        )
-                    ),
-                    SetOptions.merge()
-                )
+                .collection("Calendar")
+                .document(results.date.toString())
+                .set(results.toFirebaseResults())
         }
     }
 
