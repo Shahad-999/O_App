@@ -8,14 +8,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.util.Record
-import com.shahad.o.util.RecordResult
+import com.shahad.o.util.Results
 import com.shahad.o.util.UserData
 import com.shahad.o.util.log
 import kotlinx.coroutines.tasks.await
 
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val fireStore: FirebaseFirestore
 ) : RemoteDataSource {
     override suspend fun signIn(credential: AuthCredential): AuthResult {
         return firebaseAuth.signInWithCredential(credential).await()
@@ -39,7 +39,7 @@ class RemoteDataSourceImp(
 
     override suspend fun getRecords(): List<Record> {
         getUser()?.userId?.let {
-            val query = firestore.collection("questions")
+            val query = fireStore.collection("questions")
                 .document(it)
                 .get()
                 .await()
@@ -51,7 +51,7 @@ class RemoteDataSourceImp(
     }
 
     private suspend fun getDefaultRecords(): List<Record> {
-        val query = firestore.collection("questions").document("default_questions")
+        val query = fireStore.collection("questions").document("default_questions")
             .get()
             .await()
         val records = query.data?.toRecords()
@@ -60,9 +60,9 @@ class RemoteDataSourceImp(
     }
 
 
-    override fun sentResult(results: List<RecordResult>) {
+    override fun sentResult(results: Results) {
         getUser()?.let {
-            firestore.collection("users_records").document(it.userId)
+            fireStore.collection("users_records").document(it.userId)
                 .set(
                     hashMapOf(
                         "daily_records_results" to FieldValue.arrayUnion(
@@ -85,13 +85,13 @@ class RemoteDataSourceImp(
     }
 
     private fun sentQuestions(questions: List<Record>, uid: String){
-        firestore.collection("questions")
+        fireStore.collection("questions")
             .document(uid)
             .set(questions.toMap())
     }
 
-    private fun List<RecordResult>.toFirebaseResults(): HashMap<String, Any> {
-        val results = this.map {
+    private fun Results.toFirebaseResults(): HashMap<String, Any> {
+        val results = records.map {
             return@map hashMapOf<String, Any>(
                 "isPositive" to it.isPositive,
                 "question" to it.question,
@@ -100,7 +100,8 @@ class RemoteDataSourceImp(
         }
         return hashMapOf(
             "results" to results,
-            "date" to System.currentTimeMillis()
+            "date" to date,
+            "percent" to percent
         )
     }
 

@@ -5,3 +5,9 @@ data class  RecordResult(
     val weight: Long,
     val isPositive: Boolean
 )
+
+data class Results(
+    val records: List<RecordResult>,
+    val date: Long,
+    val percent: Float
+)
