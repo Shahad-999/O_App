@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace 'com.shahad.o'
-    compileSdk 33
+    compileSdk 34
     def Properties properties = new Properties()
     properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
     defaultConfig {
         applicationId "com.shahad.o"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -55,9 +55,9 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'androidx.activity:activity-compose:1.8.0'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
@@ -83,20 +83,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     
     //google sign in
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
 
     //fireStore
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     //firebase notifications
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
 
     //local notification
     def core_version = "1.6.0"
     implementation "androidx.core:core:$core_version"
 
     //navigation
-    def nav_version = "2.5.3"
+    def nav_version = "2.7.4"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     //Koin
@@ -110,6 +110,7 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
 
 }

@@ -40,7 +40,7 @@ fun NotificationManager.sendReminderNotification(
         applicationContext,
         1,
         contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent.FLAG_MUTABLE
     )
     val builder = NotificationCompat.Builder(applicationContext, channelId)
         .setContentTitle("GOOD MORNING")
