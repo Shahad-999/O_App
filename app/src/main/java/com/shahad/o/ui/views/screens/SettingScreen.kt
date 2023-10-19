@@ -29,12 +29,14 @@ fun NavGraphBuilder.settingRoute(
 ) {
 
     fun navToQuestionScreen() = navController.navigate(Screens.QuestionsScreen.route)
+    fun navToCalendarScreen() = navController.navigate(Screens.CalendarScreen.route)
     fun goToLoginScreen() = navController.go(Screens.SettingScreen,Screens.LoginScreen)
 
     composable(Screens.SettingScreen.route) {
         SettingScreen(
             backToHome = navController::navigateUp,
             navToQuestionsScreen = ::navToQuestionScreen,
+            navToCalendarScreen = ::navToCalendarScreen,
             goToLoginScreen = ::goToLoginScreen
         )
     }
@@ -48,6 +50,7 @@ fun SettingScreen(
     backToHome: () -> Unit,
     viewModel: SettingViewModel = koinViewModel(),
     navToQuestionsScreen: () -> Unit,
+    navToCalendarScreen: () -> Unit,
     goToLoginScreen: () -> Unit,
 ) {
     val isSignOut by viewModel.isSignOut.collectAsState()
@@ -67,6 +70,7 @@ fun SettingScreen(
                 isNotificationsOn = viewModel.isNotificationsOn,
                 onNotificationsStatusChange = viewModel::updateNotificationsStatus,
                 onClickQuestions = navToQuestionsScreen,
+                onClickCalendar = navToCalendarScreen,
                 onClickSignOut = viewModel::onClickSignOut
             )
         },

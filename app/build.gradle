@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -110,7 +111,15 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //date time
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
+
+    //Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation 'com.google.code.gson:gson:2.9.0'
 
 }

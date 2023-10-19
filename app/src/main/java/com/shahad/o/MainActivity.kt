@@ -17,6 +17,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.viewModels.MainViewModel
+import com.shahad.o.ui.views.screens.calendarRoute
 import com.shahad.o.ui.views.screens.homeRoute
 import com.shahad.o.ui.views.screens.loginRoute
 import com.shahad.o.ui.views.screens.questionsRoute
@@ -53,7 +54,7 @@ fun MainScreen(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screens.SplashScreen.route,
+                startDestination = Screens.CalendarScreen.route,
                 modifier = Modifier.padding(it)
             ) {
                 splashRoute(navController)
@@ -62,6 +63,7 @@ fun MainScreen(
                 recordRoute(navController)
                 settingRoute(navController)
                 questionsRoute(navController)
+                calendarRoute(navController)
             }
         }
     }

@@ -3,7 +3,9 @@ package com.shahad.o.data
 import com.google.firebase.auth.AuthCredential
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.base.RemoteDataSource
+import com.shahad.o.data.dataSources.mappers.toModel
 import com.shahad.o.domain.Repository
+import com.shahad.o.domain.models.DayResult
 import com.shahad.o.util.Record
 import com.shahad.o.util.ReminderManger
 import com.shahad.o.util.Results
@@ -89,6 +91,14 @@ class RepositoryImp(
 
     override fun updateQuestions(questions: List<Record>) {
         remoteDataSource.updateQuestions(questions)
+    }
+
+    override suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResult>? {
+        return try {
+            remoteDataSource.getCalendarData(startDate, endDate).toModel()
+        }catch (e: Exception){
+            null
+        }
     }
 
 }

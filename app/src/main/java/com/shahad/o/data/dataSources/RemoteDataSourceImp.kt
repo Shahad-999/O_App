@@ -4,16 +4,20 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import com.shahad.o.data.dataSources.base.RemoteDataSource
+import com.shahad.o.data.dataSources.models.DayResultDto
 import com.shahad.o.util.Record
 import com.shahad.o.util.Results
 import com.shahad.o.util.UserData
 import com.shahad.o.util.log
+import com.shahad.o.util.toDataClass
 import kotlinx.coroutines.tasks.await
 
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
-    private val fireStore: FirebaseFirestore
+    private val fireStore: FirebaseFirestore,
+    private  val gson: Gson
 ) : RemoteDataSource {
     override suspend fun signIn(credential: AuthCredential): AuthResult {
         return firebaseAuth.signInWithCredential(credential).await()
@@ -36,6 +40,7 @@ class RemoteDataSourceImp(
     }
 
     override suspend fun getRecords(): List<Record> {
+//        getCalendarData(Instant.parse("2023-10-09T22:19:44.475Z"),Instant.parse("2023-12-02T22:19:44.475Z"),).log()
         getUser()?.userId?.let {
             val query = fireStore.collection("questions")
                 .document(it)
@@ -46,15 +51,6 @@ class RemoteDataSourceImp(
             return records ?: emptyList()
         }
         return emptyList()
-    }
-
-    private suspend fun getDefaultRecords(): List<Record> {
-        val query = fireStore.collection("questions").document("default_questions")
-            .get()
-            .await()
-        val records = query.data?.toRecords()
-        records.log()
-        return records ?: emptyList()
     }
 
 
@@ -71,10 +67,34 @@ class RemoteDataSourceImp(
         sentQuestions(getDefaultRecords(),uid)
     }
 
+    private suspend fun getDefaultRecords(): List<Record> {
+        val query = fireStore.collection("questions").document("default_questions")
+            .get()
+            .await()
+        val records = query.data?.toRecords()
+        records.log()
+        return records ?: emptyList()
+    }
+
     override fun updateQuestions(questions: List<Record>) {
         getUser()?.userId?.let {
             sentQuestions(questions,it)
         }
+    }
+
+    override suspend fun getCalendarData(startDate: Long,endDate: Long): List<DayResultDto> {
+        getUser()?.let{ it ->
+            val ll = fireStore.collection("users_records").document(it.userId)
+                .collection("Calendar")
+                .whereGreaterThanOrEqualTo("date",startDate)
+                .whereLessThanOrEqualTo("date",endDate)
+                .get().await()
+            return ll.documents.mapNotNull { date ->
+                date?.data?.let { day -> day.toDataClass() }
+            }
+        }
+        return emptyList()
+
     }
 
     private fun sentQuestions(questions: List<Record>, uid: String){

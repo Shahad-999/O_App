@@ -22,6 +22,7 @@ fun SettingBody(
     onNotificationsStatusChange: (Boolean) -> Unit,
     isNotificationsOn: StateFlow<Boolean>,
     onClickQuestions: () -> Unit,
+    onClickCalendar: () -> Unit,
     onClickSignOut: () -> Unit
 ) {
     val isDark by isDarkTheme.collectAsState()
@@ -59,7 +60,8 @@ fun SettingBody(
         )
         SettingRow(
             icon = painterResource(id = R.drawable.calendar),
-            text = "Calendar"
+            text = "Calendar",
+            onClick = onClickCalendar
         )
         SettingRow(
             icon = painterResource(id = R.drawable.sign_out),
