@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
-
 package com.shahad.o.ui.views.widgets
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,7 +53,10 @@ fun CalendarBody(
                         onClickNext = { /*TODO*/ },
                         onClickPrevious = { /*TODO*/}
                     )
-                    MonthsList(modifier = Modifier)
+                    MonthsList(
+                        modifier = Modifier,
+                        months = listOf("Jan","Feb","March","April","June","July","Agu","Sep","Ocb","Nov","Dec")
+                    )
 
                 }
 

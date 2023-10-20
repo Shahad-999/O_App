@@ -14,7 +14,7 @@ class MainViewModel(
     private val notificationsUseCase: NotificationsUseCase
 ) : ViewModel() {
 
-    private val _isDarkMode = MutableStateFlow(true)
+    private val _isDarkMode = MutableStateFlow(false)
     val isDarkMode: StateFlow<Boolean> = _isDarkMode
 
     init {
@@ -34,8 +34,10 @@ class MainViewModel(
     private fun fetchThemeMode() {
         viewModelScope.launch {
             themeUseCase.isDark().collect {
-                it.log("FROM_VIEWMODEL")
-                _isDarkMode.value = it
+                if(it!=_isDarkMode.value){
+                    it.log("FROM_VIEWMODEL")
+                    _isDarkMode.value = it
+                }
             }
         }
     }
