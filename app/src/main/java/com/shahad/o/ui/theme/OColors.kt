@@ -20,6 +20,9 @@ object Colors {
     val BackgroundLightColor = Color(0xFFFFFFFF)
     val BackgroundDarkColor = Color(0xFF000000)
 
+    val OnBackgroundLightColor = Color(0xFF000000)
+    val OnBackgroundDarkColor = Color(0xFFFFFFFF)
+
 
     val CardLightColor = Color(0xFF8B9FAF)
     val CardDarkColor = Color(0xFF302C2C)
@@ -42,6 +45,7 @@ class OColors(
     primary: Color,
     primaryVariant: Color,
     background: Color,
+    onBackground: Color,
     card: Color,
     shade1: Color,
     shade2: Color,
@@ -63,6 +67,8 @@ class OColors(
         private set
     var background by mutableStateOf(background)
         private set
+    var onBackground by mutableStateOf(onBackground)
+        private set
     var card by mutableStateOf(card)
         private set
 
@@ -80,6 +86,7 @@ class OColors(
         primary = colors.primary
         primaryVariant = colors.primaryVariant
         background = colors.background
+        onBackground = colors.onBackground
         card = colors.card
         shade1 = colors.shade1
         shade2 = colors.shade2
@@ -91,6 +98,7 @@ fun OColors.copy(): OColors {
     val primary = this.primary
     val primaryVariant = this.primaryVariant
     val background = this.background
+    val onBackground = this.onBackground
     val card = this.card
     val shade1 = this.shade1
     val shade2 = this.shade2
@@ -102,6 +110,7 @@ fun OColors.copy(): OColors {
         primary = primary,
         primaryVariant = primaryVariant,
         background = background,
+        onBackground = onBackground,
         card = card,
         shade1 = shade1,
         shade2 = shade2,
@@ -118,6 +127,7 @@ val LightThemeColors by lazy {
         primary = Colors.PrimaryLightColor,
         primaryVariant = Colors.PrimaryVariantLightColor,
         background = Colors.BackgroundLightColor,
+        onBackground = Colors.OnBackgroundLightColor,
         card = Colors.CardLightColor,
         shade1 = Colors.Shade1LightColor,
         shade2 = Colors.Shade2LightColor,
@@ -131,6 +141,7 @@ val DarkThemeColors by lazy {
         primary = Colors.PrimaryDarkColor,
         primaryVariant = Colors.PrimaryVariantDarkColor,
         background = Colors.BackgroundDarkColor,
+        onBackground = Colors.OnBackgroundDarkColor,
         card = Colors.CardDarkColor,
         shade1 = Colors.Shade1DarkColor,
         shade2 = Colors.Shade2DarkColor,

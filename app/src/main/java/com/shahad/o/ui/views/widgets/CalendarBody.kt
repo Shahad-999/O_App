@@ -14,12 +14,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.util.log
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
@@ -28,6 +32,7 @@ fun CalendarBody(
     modifier: Modifier = Modifier,
     backToHome: () -> Unit,
 ) {
+    val index = remember{ mutableIntStateOf(10) }
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = { NavigationAppBar(text = "", backToHome = backToHome, modifier = modifier.background(OTheme.colors.background)) }
@@ -57,6 +62,21 @@ fun CalendarBody(
                         modifier = Modifier,
                         months = listOf("Jan","Feb","March","April","June","July","Agu","Sep","Ocb","Nov","Dec")
                     )
+                    DaysList(
+                        modifier = Modifier,
+                        moods = listOf(
+                            "😢", "😞", "😔", "😐", "🙂",
+                            "😊", "😄", "😃", "😁", "😂",
+                            "😇", "😎", "😋", "😍", "😘",
+                            "🤗", "🤩", "🥳", "😷", "😴",
+                            "🤯", "🙄", "🤔", "🤨", "😏",
+                            "😒", "😕", "😖", "😤", "😠"
+                        ),
+                        initialIndex = 10,
+                        onScroll = {newIndex->
+                            index.intValue = newIndex
+                        }
+                    )
 
                 }
 
@@ -67,6 +87,9 @@ fun CalendarBody(
         }
     }
 
+    LaunchedEffect(index.intValue){
+        index.intValue.log()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

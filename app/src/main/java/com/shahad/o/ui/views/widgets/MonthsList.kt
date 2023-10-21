@@ -37,7 +37,7 @@ fun MonthsList(
     val half =  (LocalConfiguration.current.screenWidthDp * 0.5)-(width*0.085)
 
     LazyRow(
-        modifier.padding(top = 8.dp, bottom = 24.dp),
+        modifier.padding(top = 8.dp, bottom = 16.dp),
         state = monthState,
         flingBehavior = monthSnap,
         contentPadding = PaddingValues(horizontal = half.dp)
