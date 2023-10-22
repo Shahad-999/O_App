@@ -83,10 +83,10 @@ suspend fun LazyListState.scrollAndCentralizeItem(index: Int, padding: Double): 
     if (itemInfo != null) {
         val center =
             this@scrollAndCentralizeItem.layoutInfo.viewportEndOffset / 2 - padding.roundToInt()
-        val childCenter = itemInfo.offset + (itemInfo.size / 1.5).toInt()
+        val childCenter = itemInfo.offset + (itemInfo.size / 2)
         this@scrollAndCentralizeItem.animateScrollBy((childCenter - center).toFloat())
     } else {
-        this@scrollAndCentralizeItem.animateScrollToItem(index)
+        this@scrollAndCentralizeItem.animateScrollToItem(index,padding.roundToInt())
     }
     return {}
 }

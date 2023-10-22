@@ -3,9 +3,11 @@ package com.shahad.o.ui.views.widgets
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -39,6 +41,7 @@ import com.shahad.o.ui.util.scrollAndCentralizeItem
 @Composable
 fun DaysList(
     modifier: Modifier,
+    days: List<Int>,
     moods: List<String>,
     initialIndex: Int,
     onScroll: (Int) -> Unit,
@@ -53,15 +56,16 @@ fun DaysList(
     val centerBackgroundColor = OTheme.colors.onBackground
     val unCenterBackgroundColor = OTheme.colors.background
     val width = LocalConfiguration.current.screenWidthDp
-    val half = (LocalConfiguration.current.screenWidthDp * 0.5) - (width * 0.05)
-
+    val paddingHorizantil = width*0.08
+    val half = (LocalConfiguration.current.screenWidthDp * 0.5)
     LazyRow(
         modifier.padding(top = 8.dp, bottom = 24.dp),
         state = daysState,
         flingBehavior = daysSnap,
-        contentPadding = PaddingValues(horizontal = half.dp)
+        contentPadding = PaddingValues(horizontal = ((width * 0.5)).dp),
+        horizontalArrangement = Arrangement.spacedBy(paddingHorizantil.dp)
     ) {
-        itemsIndexed(moods) { index, mood ->
+        itemsIndexed(days) { index, day ->
             val isCenter by remember {
                 derivedStateOf {
                     index.isIndexCenter(daysState.layoutInfo, padding = half)
@@ -71,17 +75,24 @@ fun DaysList(
             val textColor1= if(isCenter) centerTextColor else unCenterTextColor
             val scale = if(isCenter) 1f else 0.8f
 
-            Column {
+            Column(
+                modifier = Modifier
+
+//                    .padding(horizontal = paddingHorizantil.dp)
+                    .height(100.dp),
+//                    .background(Color.Green)
+                horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = (width * 0.02).dp)
                         .size(40.dp)
                         .clip(CircleShape)
                         .background(backgroundColor1),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "${ index + 1 }",
+                        "$day",
                         style = TextStyle(
                             fontSize = 16.sp,
                             color = textColor1,
@@ -96,7 +107,6 @@ fun DaysList(
                 Box(
                     modifier = Modifier
                         .padding(top = 8.dp)
-                        .padding(horizontal = (width * 0.02).dp)
                         .size(40.dp)
                         .clip(CircleShape),
                     contentAlignment = Alignment.Center
@@ -119,8 +129,8 @@ fun DaysList(
 
     }
 
-    LaunchedEffect({}) {
-        daysState.scrollAndCentralizeItem(initialIndex, half)
+    LaunchedEffect(initialIndex) {
+        daysState.scrollAndCentralizeItem(initialIndex, half+50)
     }
 
     LaunchedEffect(daysState.isScrollInProgress) {

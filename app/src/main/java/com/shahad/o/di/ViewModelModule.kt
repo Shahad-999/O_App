@@ -1,5 +1,6 @@
 package com.shahad.o.di
 
+import com.shahad.o.ui.viewModels.CalendarViewModel
 import com.shahad.o.ui.viewModels.HomeViewModel
 import com.shahad.o.ui.viewModels.LoginViewModel
 import com.shahad.o.ui.viewModels.MainViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModel { RecordsViewModel(get(),get()) }
     viewModel { SettingViewModel(get(),get(),get(),get()) }
     viewModel { QuestionsViewModel(get(),get()) }
+    viewModel { CalendarViewModel(get()) }
 }

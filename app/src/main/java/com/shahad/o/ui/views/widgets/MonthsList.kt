@@ -2,6 +2,7 @@ package com.shahad.o.ui.views.widgets
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -19,13 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.util.getIndexOfCenter
+import com.shahad.o.ui.util.scrollAndCentralizeItem
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MonthsList(
     modifier: Modifier,
-    months: List<String>
+    months: List<String>,
+    monthIndex: Int,
+    onScroll: (Int) -> Unit
 ) {
 
     val monthState = rememberLazyListState()
@@ -34,13 +40,14 @@ fun MonthsList(
     val shade1 = OTheme.colors.shade1
     val shade2 = OTheme.colors.shade2
     val width = LocalConfiguration.current.screenWidthDp
-    val half =  (LocalConfiguration.current.screenWidthDp * 0.5)-(width*0.085)
+    val half =  (LocalConfiguration.current.screenWidthDp * 0.5)
 
     LazyRow(
         modifier.padding(top = 8.dp, bottom = 16.dp),
         state = monthState,
         flingBehavior = monthSnap,
-        contentPadding = PaddingValues(horizontal = half.dp)
+        contentPadding = PaddingValues(horizontal = half.dp),
+        horizontalArrangement = Arrangement.spacedBy((width * 0.1).dp)
     ){
         itemsIndexed(months){index,month->
             val weight by remember {
@@ -103,8 +110,17 @@ fun MonthsList(
                     fontSize = 18.sp,
                     color = color
                 ),
-                modifier= Modifier.padding(horizontal = (width * 0.057).dp)
             )
+        }
+    }
+
+    LaunchedEffect({}) {
+        monthState.scrollAndCentralizeItem(monthIndex, half-100)
+    }
+
+    LaunchedEffect(monthState.isScrollInProgress) {
+        if(!monthState.isScrollInProgress) {
+            monthState.getIndexOfCenter(half)?.let(onScroll)
         }
     }
 
