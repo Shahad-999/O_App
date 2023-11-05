@@ -13,6 +13,7 @@ import com.shahad.o.util.UserData
 import com.shahad.o.util.log
 import com.shahad.o.util.toDataClass
 import kotlinx.coroutines.tasks.await
+import kotlinx.serialization.ExperimentalSerializationApi
 
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
@@ -82,15 +83,16 @@ class RemoteDataSourceImp(
         }
     }
 
-    override suspend fun getCalendarData(startDate: Long,endDate: Long): List<DayResultDto> {
-        getUser()?.let{ it ->
+    @OptIn(ExperimentalSerializationApi::class)
+    override suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResultDto> {
+        getUser()?.let{
             val ll = fireStore.collection("users_records").document(it.userId)
                 .collection("Calendar")
                 .whereGreaterThanOrEqualTo("date",startDate)
                 .whereLessThanOrEqualTo("date",endDate)
                 .get().await()
             return ll.documents.mapNotNull { date ->
-                date?.data?.let { day -> day.toDataClass() }
+                date?.data?.toDataClass()
             }
         }
         return emptyList()
@@ -108,7 +110,8 @@ class RemoteDataSourceImp(
             return@map hashMapOf<String, Any>(
                 "isPositive" to it.isPositive,
                 "question" to it.question,
-                "weight" to it.weight
+                "weight" to it.weight,
+                "answer" to it.answer
             )
         }
         return hashMapOf(

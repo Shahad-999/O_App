@@ -54,7 +54,7 @@ fun MainScreen(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screens.CalendarScreen.route,
+                startDestination = Screens.SplashScreen.route,
                 modifier = Modifier.padding(it)
             ) {
                 splashRoute(navController)

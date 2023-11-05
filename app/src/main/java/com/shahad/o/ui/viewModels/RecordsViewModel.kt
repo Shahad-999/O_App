@@ -40,26 +40,26 @@ class RecordsViewModel(
     }
 
     fun onClickYes() {
-        updateResult(true)
+        updateResult("YES")
         moveToNextStep()
     }
 
     fun onClickNo() {
-        updateResult(false)
+        updateResult("NO")
         moveToNextStep()
     }
 
     private fun moveToNextStep() {
         if (_records.value is RecordScreenState.LoadedQuestions) {
             if (isLastQuestion((_records.value as RecordScreenState.LoadedQuestions).questions)) {
-                _currentIndex.value++
-            } else {
                 onQuestionsEnded()
+            } else {
+                _currentIndex.value++
             }
         }
     }
 
-    private fun isLastQuestion(questions: List<Record>) = _currentIndex.value != questions.lastIndex
+    private fun isLastQuestion(questions: List<Record>) = _currentIndex.value == questions.lastIndex
 
     private fun onQuestionsEnded() {
         viewModelScope.launch {
@@ -72,18 +72,20 @@ class RecordsViewModel(
         }
     }
 
-    private fun updateResult(state: Boolean) {
+    private fun updateResult(
+        answer: String
+    ) {
         if (_records.value is RecordScreenState.LoadedQuestions) {
             with((_records.value as RecordScreenState.LoadedQuestions).questions[_currentIndex.value]) {
                 results.add(
                     RecordResult(
                         question = this.question,
                         weight = this.weight,
-                        isPositive = this.positive_answer == state
+                        isPositive = this.positive_answer,
+                        answer = answer
                     )
                 )
             }
-
         }
     }
 
