@@ -66,8 +66,6 @@ class CalendarViewModel(
         viewModelScope.launch {
             _dayIndex.emit(newDayIndex)
         }
-        onDateChange()
-        "view model detect the current day is ${newDayIndex + 1}".log()
     }
 
     fun increaseYear() {
@@ -91,6 +89,12 @@ class CalendarViewModel(
 
         LocalDate(year= year, monthNumber = month, dayOfMonth = day).toString().apply {
             if(this != _date.value) _date.value = this
+        }
+        viewModelScope.launch {
+            getCalendar.getCalendar(year,month).apply {
+                this.log()
+            }
+
         }
     }
     companion object{

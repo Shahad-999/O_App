@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.R
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.util.go
 import com.shahad.o.ui.viewModels.SettingViewModel
 import com.shahad.o.ui.views.widgets.NavigationAppBar
@@ -32,7 +32,7 @@ fun NavGraphBuilder.settingRoute(
     fun navToCalendarScreen() = navController.navigate(Screens.CalendarScreen.route)
     fun goToLoginScreen() = navController.go(Screens.SettingScreen,Screens.LoginScreen)
 
-    composable(Screens.SettingScreen.route) {
+    animatedComposable(Screens.SettingScreen.route) {
         SettingScreen(
             backToHome = navController::navigateUp,
             navToQuestionsScreen = ::navToQuestionScreen,

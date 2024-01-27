@@ -1,7 +1,7 @@
 package com.shahad.o.domain.usecases
 
 import com.shahad.o.domain.Repository
-import com.shahad.o.ui.util.getCurrentDate
+import com.shahad.o.util.getCurrentDate
 import com.shahad.o.util.RecordResult
 import com.shahad.o.util.Results
 import com.shahad.o.util.log
@@ -24,7 +24,7 @@ class ResultsUseCase(
         val list: MutableList<Boolean> = mutableListOf()
         results.forEach { result ->
             repeat(result.weight.toInt()) {
-                list.add(result.isPositive)
+                list.add(result.isAnswerPositive)
             }
         }
         return list.filter { it }.size.toFloat() / list.size

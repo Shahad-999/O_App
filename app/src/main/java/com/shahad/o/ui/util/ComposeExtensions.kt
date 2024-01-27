@@ -1,15 +1,30 @@
 package com.shahad.o.ui.util
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.lazy.LazyListLayoutInfo
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import kotlin.math.roundToInt
 
@@ -86,13 +101,13 @@ suspend fun LazyListState.scrollAndCentralizeItem(index: Int, padding: Double): 
         val childCenter = itemInfo.offset + (itemInfo.size / 2)
         this@scrollAndCentralizeItem.animateScrollBy((childCenter - center).toFloat())
     } else {
-        this@scrollAndCentralizeItem.animateScrollToItem(index,padding.roundToInt())
+        this@scrollAndCentralizeItem.animateScrollToItem(index, padding.roundToInt())
     }
     return {}
 }
 
 
-fun Int.isIndexCenter(layoutInfo: LazyListLayoutInfo, padding: Double=0.0): Boolean{
+fun Int.isIndexCenter(layoutInfo: LazyListLayoutInfo, padding: Double = 0.0): Boolean {
     val visibleItemsInfo = layoutInfo.visibleItemsInfo
     val itemInfo = visibleItemsInfo.firstOrNull { it.index == this }
     itemInfo?.let {
@@ -113,4 +128,56 @@ fun Int.isIndexCenter(layoutInfo: LazyListLayoutInfo, padding: Double=0.0): Bool
         if (target in -delta..delta) return true
     }
     return false
+}
+
+fun NavGraphBuilder.animatedComposable(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    enterTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+    exitTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    popEnterTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
+        enterTransition,
+    popExitTransition: (@JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? =
+        exitTransition,
+    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit
+) {
+
+    composable(
+        route,
+        arguments = arguments,
+        deepLinks = deepLinks,
+        enterTransition = { scaleIntoContainer() },
+        exitTransition = { scaleOutOfContainer()  },
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition,
+        content = content
+    )
+}
+
+
+private fun scaleIntoContainer(
+//    direction: ScaleTransitionDirection = ScaleTransitionDirection.INWARDS,
+    initialScale: Float = 1.1f
+): EnterTransition {
+    return scaleIn(
+        animationSpec = tween(220, delayMillis = 90),
+        initialScale = initialScale
+    ) + fadeIn(animationSpec = tween(220, delayMillis = 90))
+}
+
+private fun scaleOutOfContainer(
+//    direction: ScaleTransitionDirection = ScaleTransitionDirection.OUTWARDS,
+    targetScale: Float =  1.1f
+): ExitTransition {
+    return scaleOut(
+        animationSpec = tween(
+            durationMillis = 220,
+            delayMillis = 90
+        ), targetScale = targetScale
+    ) + fadeOut(tween(delayMillis = 90))
 }

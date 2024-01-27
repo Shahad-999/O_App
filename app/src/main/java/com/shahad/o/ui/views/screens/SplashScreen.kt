@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.util.UserState
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.util.go
 import com.shahad.o.ui.viewModels.SplashViewModel
 import com.shahad.o.ui.views.widgets.SplashBody
@@ -23,7 +23,9 @@ fun NavGraphBuilder.splashRoute(
     fun navToLogin() =
         navController.go(source = Screens.SplashScreen, destination = Screens.LoginScreen)
 
-    composable(Screens.SplashScreen.route) {
+    animatedComposable(
+        Screens.SplashScreen.route,
+    ) {
         SplashScreen(
             navToHome = ::navToHome,
             navToLogin = ::navToLogin

@@ -4,7 +4,8 @@ data class  RecordResult(
     val question: String,
     val weight: Long,
     val isPositive: Boolean,
-    val answer: String
+    val answer: String,
+    val isAnswerPositive: Boolean
 )
 
 data class Results(

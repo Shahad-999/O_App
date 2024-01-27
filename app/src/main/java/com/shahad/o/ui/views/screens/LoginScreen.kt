@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.ui.util.GoogleAuthUiClient
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.LoginViewModel
 import com.shahad.o.ui.views.widgets.LoginBody
 import com.shahad.o.ui.util.go
@@ -26,7 +26,7 @@ fun NavGraphBuilder.loginRoute(
     fun navToHome() =
         navController.go(source = Screens.LoginScreen, destination = Screens.HomeScreen)
 
-    composable(Screens.LoginScreen.route) {
+    animatedComposable(Screens.LoginScreen.route) {
         LoginScreen(
             navToHome = ::navToHome
         )

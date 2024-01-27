@@ -19,10 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.states.RecordScreenState
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.RecordsViewModel
 import com.shahad.o.ui.views.widgets.LoadingView
 import com.shahad.o.ui.views.widgets.QuestionsView
@@ -35,7 +35,7 @@ fun NavGraphBuilder.recordRoute(
     navController: NavHostController
 ) {
 
-    composable(Screens.RecordScreen.route) {
+    animatedComposable(Screens.RecordScreen.route) {
         RecordScreen(
             backToHome = navController::navigateUp,
         )

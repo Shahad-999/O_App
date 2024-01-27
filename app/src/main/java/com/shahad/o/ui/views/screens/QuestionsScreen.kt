@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.R
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.states.QuestionsState
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.QuestionsViewModel
 import com.shahad.o.ui.views.widgets.LoadingView
 import com.shahad.o.ui.views.widgets.NavigationAppBar
@@ -28,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 fun NavGraphBuilder.questionsRoute(
     navController: NavHostController
 ) {
-    composable(Screens.QuestionsScreen.route) {
+    animatedComposable(Screens.QuestionsScreen.route) {
         QuestionsScreen(
             backToHome = navController::navigateUp,
         )

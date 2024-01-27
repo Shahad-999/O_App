@@ -4,9 +4,7 @@ import com.shahad.o.data.dataSources.models.DayResultDto
 import com.shahad.o.data.dataSources.models.ResultDto
 import com.shahad.o.domain.models.DayResult
 import com.shahad.o.domain.models.Result
-import kotlinx.serialization.ExperimentalSerializationApi
 @JvmName("toDayResultModel")
-@OptIn(ExperimentalSerializationApi::class)
 fun DayResultDto.toModel(): DayResult {
     return DayResult(
         date = date, percent = percent, results = results.toModel()
@@ -14,7 +12,6 @@ fun DayResultDto.toModel(): DayResult {
 }
 
 @JvmName("toListOfDayResultModel")
-@OptIn(ExperimentalSerializationApi::class)
 fun List<DayResultDto>.toModel(): List<DayResult> = this.map { it.toModel() }
 
 
@@ -23,7 +20,8 @@ fun ResultDto.toModel(): Result {
     return Result(
         isPositive = isPositive,
         question = question,
-        weight = weight
+        weight = weight,
+        answer = answer
     )
 }
 

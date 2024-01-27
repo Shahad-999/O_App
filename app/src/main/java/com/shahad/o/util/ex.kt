@@ -6,6 +6,11 @@ import com.google.gson.reflect.TypeToken
 import com.shahad.o.util.Constant.THIRTY_DAYS
 import com.shahad.o.util.Constant.THIRTY_ONE_DAYS
 import com.shahad.o.util.Constant.TWENTY_DAYS
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.koin.java.KoinJavaComponent.inject
 
 fun <T> T?.log(tag: String = "O_APP"): T? {
@@ -45,5 +50,11 @@ fun Int.toMonth(): String {
         11 -> "November"
         12 -> "December"
         else -> "Invalid Month"
+    }
+}
+
+fun Instant.atStartOfDay(timeZone: TimeZone = TimeZone.currentSystemDefault()): Instant {
+    this.toLocalDateTime(timeZone).apply {
+        return LocalDateTime(year, monthNumber,dayOfMonth,0,0,0).toInstant(TimeZone.UTC)
     }
 }

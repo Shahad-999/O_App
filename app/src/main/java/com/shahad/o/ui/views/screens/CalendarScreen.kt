@@ -8,8 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.CalendarViewModel
 import com.shahad.o.ui.views.widgets.CalendarBody
 import com.shahad.o.util.Constant.THIRTY_ONE_DAYS
@@ -18,7 +18,7 @@ import org.koin.androidx.compose.koinViewModel
 fun NavGraphBuilder.calendarRoute(
     navController: NavHostController
 ) {
-    composable(Screens.CalendarScreen.route) {
+    animatedComposable(Screens.CalendarScreen.route) {
         CalendarScreen(
             backToHome = navController::navigateUp,
         )

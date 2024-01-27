@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.HomeViewModel
 import com.shahad.o.ui.views.widgets.HomeBody
 import org.koin.androidx.compose.koinViewModel
@@ -22,7 +23,7 @@ fun NavGraphBuilder.homeRoute(
     fun navToRecord() =
         navController.navigate(Screens.RecordScreen.route)
 
-    composable(Screens.HomeScreen.route) {
+    animatedComposable(Screens.HomeScreen.route) {
         HomeScreen(
             navToSetting = ::navToSetting,
             navToRecord = ::navToRecord

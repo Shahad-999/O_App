@@ -1,4 +1,4 @@
-package com.shahad.o.ui.util
+package com.shahad.o.util
 
 import kotlinx.datetime.Clock
 

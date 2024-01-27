@@ -40,12 +40,12 @@ class RecordsViewModel(
     }
 
     fun onClickYes() {
-        updateResult("YES")
+        updateResult(true,"YES")
         moveToNextStep()
     }
 
     fun onClickNo() {
-        updateResult("NO")
+        updateResult(false,"NO")
         moveToNextStep()
     }
 
@@ -73,6 +73,7 @@ class RecordsViewModel(
     }
 
     private fun updateResult(
+        state: Boolean,
         answer: String
     ) {
         if (_records.value is RecordScreenState.LoadedQuestions) {
@@ -82,7 +83,8 @@ class RecordsViewModel(
                         question = this.question,
                         weight = this.weight,
                         isPositive = this.positive_answer,
-                        answer = answer
+                        answer = answer,
+                        isAnswerPositive =  this.positive_answer == state
                     )
                 )
             }

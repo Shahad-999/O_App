@@ -90,14 +90,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     //firebase notifications
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.3.1'
 
     //local notification
     def core_version = "1.6.0"
     implementation "androidx.core:core:$core_version"
 
     //navigation
-    def nav_version = "2.7.4"
+    def nav_version = "2.7.5"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     //Koin

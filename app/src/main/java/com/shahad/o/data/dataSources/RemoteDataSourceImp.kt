@@ -13,7 +13,6 @@ import com.shahad.o.util.UserData
 import com.shahad.o.util.log
 import com.shahad.o.util.toDataClass
 import kotlinx.coroutines.tasks.await
-import kotlinx.serialization.ExperimentalSerializationApi
 
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
@@ -83,7 +82,6 @@ class RemoteDataSourceImp(
         }
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResultDto> {
         getUser()?.let{
             val ll = fireStore.collection("users_records").document(it.userId)
