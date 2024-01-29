@@ -40,6 +40,7 @@ fun CalendarScreen(
     val days by calendarViewModel.days.collectAsState(THIRTY_ONE_DAYS)
     val moods by calendarViewModel.moods.collectAsState()
     val date by calendarViewModel.date.collectAsState()
+
     CalendarBody(
         modifier = modifier,
         backToHome = backToHome,

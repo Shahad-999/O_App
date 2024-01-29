@@ -1,5 +1,6 @@
 package com.shahad.o.ui.views.widgets
 
+import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
@@ -14,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shahad.o.ui.theme.OTheme
@@ -56,14 +59,14 @@ fun DaysList(
     val centerBackgroundColor = OTheme.colors.onBackground
     val unCenterBackgroundColor = OTheme.colors.background
     val width = LocalConfiguration.current.screenWidthDp
-    val paddingHorizantil = width*0.08
+    val paddingHorizontal = width * 0.08
     val half = (LocalConfiguration.current.screenWidthDp * 0.5)
     LazyRow(
         modifier.padding(top = 8.dp, bottom = 24.dp),
         state = daysState,
         flingBehavior = daysSnap,
         contentPadding = PaddingValues(horizontal = ((width * 0.5)).dp),
-        horizontalArrangement = Arrangement.spacedBy(paddingHorizantil.dp)
+        horizontalArrangement = Arrangement.spacedBy(paddingHorizontal.dp)
     ) {
         itemsIndexed(days) { index, day ->
             val isCenter by remember {
@@ -71,9 +74,9 @@ fun DaysList(
                     index.isIndexCenter(daysState.layoutInfo, padding = half)
                 }
             }
-            val backgroundColor1= if(isCenter) centerBackgroundColor else unCenterBackgroundColor
-            val textColor1= if(isCenter) centerTextColor else unCenterTextColor
-            val scale = if(isCenter) 1f else 0.8f
+            val backgroundColor1 = if (isCenter) centerBackgroundColor else unCenterBackgroundColor
+            val textColor1 = if (isCenter) centerTextColor else unCenterTextColor
+            val scale = if (isCenter) 1f else 0.8f
 
             Column(
                 modifier = Modifier
@@ -130,13 +133,34 @@ fun DaysList(
     }
 
     LaunchedEffect(initialIndex) {
-        daysState.scrollAndCentralizeItem(initialIndex, half+50)
+        daysState.scrollAndCentralizeItem(initialIndex, half + 50)
     }
 
     LaunchedEffect(daysState.isScrollInProgress) {
-        if(!daysState.isScrollInProgress) {
+        if (!daysState.isScrollInProgress) {
             daysState.getIndexOfCenter(half)?.let(onScroll)
         }
     }
 
+}
+
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Preview(showSystemUi = true, showBackground = true)
+@Preview(
+//    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+//    showBackground = true
+)
+@Composable
+fun DaysPreview() {
+    OTheme {
+        Surface {
+            DaysList(
+                modifier = Modifier.background(color = OTheme.colors.background),
+                days = (1..31).toList(),
+                moods = List(31) { "" },
+                initialIndex = 15,
+                onScroll = {})
+        }
+    }
 }

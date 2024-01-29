@@ -8,22 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.shahad.o.domain.models.Result
 import com.shahad.o.ui.theme.OTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -42,14 +37,20 @@ fun CalendarBody(
     onDayChanged: (Int) -> Unit,
     onYearIncrease: () -> Unit,
     onYearDecrease: () -> Unit,
-    date: String,
+    date: List<Result>,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { NavigationAppBar(text = "", backToHome = backToHome, modifier = modifier.background(OTheme.colors.background)) }
+        topBar = {
+            NavigationAppBar(
+                text = "",
+                backToHome = backToHome,
+                modifier = modifier.background(OTheme.colors.background)
+            )
+        }
     ) {
         Column(
-            modifier= Modifier
+            modifier = Modifier
                 .padding(it)
                 .background(color = OTheme.colors.primary)
                 .fillMaxSize()
@@ -62,9 +63,10 @@ fun CalendarBody(
                     .background(color = OTheme.colors.background),
             ) {
                 Column {
-                    YearPicker(modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.CenterHorizontally),
+                    YearPicker(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally),
                         currentYear = "$year",
                         onClickNext = onYearIncrease,
                         onClickPrevious = onYearDecrease
@@ -79,30 +81,14 @@ fun CalendarBody(
                         modifier = Modifier,
                         moods = moods,
                         initialIndex = dayIndex,
-                        days= days,
+                        days = days,
                         onScroll = onDayChanged
                     )
 
                 }
 
             }
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxSize(1f),
-                contentAlignment = Alignment.Center
-            ){
-
-                Text(
-                    date,
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                )
-            }
-            LazyColumn {
-            }
+            DayReview(questions = date, modifier = Modifier)
         }
     }
 
@@ -121,8 +107,8 @@ fun CalendarPreview() {
         Surface {
             CalendarBody(
                 year = 2014,
-                monthIndex = 4595,
-                dayIndex = 4511,
+                monthIndex = 1,
+                dayIndex = 15,
                 days = listOf(),
                 months = listOf(),
                 moods = listOf(),
@@ -131,7 +117,7 @@ fun CalendarPreview() {
                 onDayChanged = {},
                 onYearIncrease = {},
                 onYearDecrease = {},
-                date = "date"
+                date = emptyList()
             )
         }
     }

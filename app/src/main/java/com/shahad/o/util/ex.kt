@@ -58,3 +58,18 @@ fun Instant.atStartOfDay(timeZone: TimeZone = TimeZone.currentSystemDefault()): 
         return LocalDateTime(year, monthNumber,dayOfMonth,0,0,0).toInstant(TimeZone.UTC)
     }
 }
+
+fun Double.toEmoji(): String {
+    return when {
+        this >= 0.9 -> "😁"
+        this >= 0.8 -> "😄"
+        this >= 0.7 -> "😃"
+        this >= 0.6 -> "😊"
+        this >= 0.5 -> "😐"
+        this >= 0.4 -> "😕"
+        this >= 0.3 -> "😟"
+        this >= 0.2 -> "😢"
+        this >= 0.1 -> "😭"
+        else -> "😖"
+    }
+}
