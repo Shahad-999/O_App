@@ -73,3 +73,7 @@ fun Double.toEmoji(): String {
         else -> "😖"
     }
 }
+
+ fun Boolean.toPositiveAnswer(): String {
+    return  if(this) "Yes" else "No"
+}
