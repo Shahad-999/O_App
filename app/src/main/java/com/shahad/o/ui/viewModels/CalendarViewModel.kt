@@ -2,8 +2,9 @@ package com.shahad.o.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shahad.o.domain.models.Result
 import com.shahad.o.domain.usecases.GetCalendar
+import com.shahad.o.ui.states.MonthMoodsState
+import com.shahad.o.ui.states.RecordsCalendarState
 import com.shahad.o.util.getDays
 import com.shahad.o.util.toEmoji
 import com.shahad.o.util.toMonth
@@ -27,11 +28,11 @@ class CalendarViewModel(
     val days = _monthIndex.map { it.getDays() }
     private val _dayIndex = MutableStateFlow(0)
     val dayIndex: StateFlow<Int> = _dayIndex
-    private val _date = MutableStateFlow<List<Result>>(emptyList())
-    val date: StateFlow<List<Result>> = _date
+    private val _records = MutableStateFlow<RecordsCalendarState>(RecordsCalendarState())
+    val records: StateFlow<RecordsCalendarState> = _records
     val months = MONTHS.map { it.toMonth() }
     val moods = MutableStateFlow(DEFAULT_MOODS)
-    val results = MutableStateFlow<Map<Int, List<Result>>>(emptyMap())
+    val results = MutableStateFlow<MonthMoodsState>(MonthMoodsState())
 
     init {
         viewModelScope.launch {
@@ -78,9 +79,6 @@ class CalendarViewModel(
         onDateChange()
     }
 
-    private fun updateResult() {
-        _date.value = results.value[_dayIndex.value + 1] ?: emptyList()
-    }
 
     private fun onDateChange(
         year: Int = _year.value,
@@ -89,22 +87,47 @@ class CalendarViewModel(
 
         viewModelScope.launch {
             moods.tryEmit(DEFAULT_MOODS)
-            getCalendar.getCalendar(year, month)?.apply {
-                dayToMode(associateBy(
+            _records.value = RecordsCalendarState(isLoading = true)
+            results.value = MonthMoodsState(isLoading = true)
+            val calendarResults =getCalendar.getCalendar(year, month)
+            if(calendarResults!=null){
+                dayToMode(calendarResults.associateBy(
                     {
                         Instant.fromEpochMilliseconds(it.date)
                             .toLocalDateTime(TimeZone.currentSystemDefault()).dayOfMonth
                     }, { it.percent }
                 )
                 )
-                results.tryEmit(associateBy({
+                results.tryEmit(MonthMoodsState(records= calendarResults.associateBy({
                     Instant.fromEpochMilliseconds(it.date)
                         .toLocalDateTime(TimeZone.currentSystemDefault()).dayOfMonth
-                }, { it.results }))
+                }, { it.results })))
                 updateResult()
+            }else{
+                _records.value = RecordsCalendarState(isError = true)
+                results.value = MonthMoodsState(isError = true)
             }
 
         }
+    }
+
+    private fun updateResult() {
+        val results = results.value
+        if(results.isError){
+            _records.value = RecordsCalendarState(isEmpty = true)
+
+        }else if(results.isLoading){
+            _records.value = RecordsCalendarState(isLoading = true)
+
+        }else if(results.records!=null) {
+
+                if (results.records[_dayIndex.value + 1]==null) {
+                    _records.value = RecordsCalendarState(isEmpty = true)
+                } else {
+                    _records.value = RecordsCalendarState(records = results.records[_dayIndex.value + 1])
+                }
+            }
+
     }
 
     companion object {
@@ -113,7 +136,7 @@ class CalendarViewModel(
         val DEFAULT_MOODS = List(31) { "⚫" }
     }
 
-    fun dayToMode(activeDays: Map<Int, Double>) {
+    private fun dayToMode(activeDays: Map<Int, Double>) {
         moods.tryEmit(List(31) { index -> if (activeDays.containsKey(index + 1)) activeDays[index + 1]!!.toEmoji() else "⚫" })
     }
 }

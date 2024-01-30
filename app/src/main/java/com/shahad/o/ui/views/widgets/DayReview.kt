@@ -24,51 +24,80 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shahad.o.domain.models.Result
+import com.shahad.o.ui.states.RecordsCalendarState
 import com.shahad.o.ui.theme.OTheme
 
 @Composable
 fun DayReview(
-    modifier: Modifier=Modifier,
-    questions: List<Result>
+    modifier: Modifier = Modifier,
+    questions: RecordsCalendarState
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxSize(1f),
+        contentAlignment = Alignment.Center
     ) {
-        LazyColumn {
-            items(questions) {
-                Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth(),) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.White, shape = RoundedCornerShape(32))
+        if (questions.isEmpty) {
+            Text(text = "لا يوجد بيانات في هذا اليوم",style = TextStyle(
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            ))
+        } else if (questions.isLoading) {
+            Text(text = "تحميل .....",style = TextStyle(
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            ))
+        } else if (questions.isError) {
+            Text(text = "خطأو حاول مرة اخرى",style = TextStyle(
+                    color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            ))
+        } else if (questions.records != null) {
+            LazyColumn {
+                items(questions.records) {
+                    Column(
+                        Modifier
                             .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .fillMaxWidth(),
                     ) {
-                        Text(
-                            it.question,
-                            style = TextStyle(
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
+                        Box(
+                            modifier = Modifier
+                                .background(Color.White, shape = RoundedCornerShape(32))
+                                .padding(horizontal = 16.dp, vertical = 8.dp)
+                        ) {
+                            Text(
+                                it.question,
+                                style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Medium
+                                )
                             )
-                        )
-                    }
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(vertical = 8.dp)
-                            .background(Color.Transparent, shape = RoundedCornerShape(32))
-                            .border(border = BorderStroke(1.dp,color= Color.White), shape = RoundedCornerShape(32))
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                    ) {
-                        Text(
-                            it.answer,
-                            style = TextStyle(
-                                color = Color.White,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
+                        }
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.End)
+                                .padding(vertical = 8.dp)
+                                .background(Color.Transparent, shape = RoundedCornerShape(32))
+                                .border(
+                                    border = BorderStroke(1.dp, color = Color.White),
+                                    shape = RoundedCornerShape(32)
+                                )
+                                .padding(horizontal = 16.dp, vertical = 8.dp)
+                        ) {
+                            Text(
+                                it.answer,
+                                style = TextStyle(
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Medium
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -88,12 +117,32 @@ fun DayReview(
 fun DayReviewPreview() {
     OTheme {
         Surface {
-            DayReview(questions = listOf(
-                Result(isPositive = false,question="Are you HAPPY?",answer= "YES", weight = 2),
-                Result(isPositive = false,question="Are you HAPPY?",answer= "YES", weight = 2),
-                Result(isPositive = false,question="Are you HAPPY?",answer= "YES", weight = 2),
-            ),
-                modifier = Modifier.fillMaxSize().background(OTheme.colors.primary)
+            DayReview(
+                questions = RecordsCalendarState(
+                    records = listOf(
+                        Result(
+                            isPositive = false,
+                            question = "Are you HAPPY?",
+                            answer = "YES",
+                            weight = 2
+                        ),
+                        Result(
+                            isPositive = false,
+                            question = "Are you HAPPY?",
+                            answer = "YES",
+                            weight = 2
+                        ),
+                        Result(
+                            isPositive = false,
+                            question = "Are you HAPPY?",
+                            answer = "YES",
+                            weight = 2
+                        ),
+                    )
+                ),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(OTheme.colors.primary)
             )
         }
     }
