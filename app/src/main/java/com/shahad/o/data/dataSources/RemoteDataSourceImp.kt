@@ -97,6 +97,21 @@ class RemoteDataSourceImp(
 
     }
 
+    override suspend fun getStatistics(startDate: Long, endDate: Long): Map<Long, Double> {
+
+        getUser()?.let{
+            val ll = fireStore.collection("users_records").document(it.userId)
+                .collection("Calendar")
+                .whereGreaterThanOrEqualTo("date",startDate)
+                .whereLessThanOrEqualTo("date",endDate)
+
+                .get().await()
+             return ll.documents.mapNotNull { date ->
+                 date.data?.let { document->  (document["date"] as Long) to (document["percent"] as Double) }
+            }.toMap()
+        }
+        return emptyMap()
+    }
     private fun sentQuestions(questions: List<Record>, uid: String){
         fireStore.collection("questions")
             .document(uid)

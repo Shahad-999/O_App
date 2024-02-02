@@ -77,3 +77,8 @@ fun Double.toEmoji(): String {
  fun Boolean.toPositiveAnswer(): String {
     return  if(this) "Yes" else "No"
 }
+fun ClosedRange<Instant>.toEpochMillisecondsRange(): ClosedRange<Long> {
+    return (this.start
+        .toEpochMilliseconds()..this.endInclusive
+        .toEpochMilliseconds())
+}

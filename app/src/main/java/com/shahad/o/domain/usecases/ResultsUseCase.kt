@@ -1,7 +1,7 @@
 package com.shahad.o.domain.usecases
 
 import com.shahad.o.domain.Repository
-import com.shahad.o.util.getCurrentDate
+import com.shahad.o.util.getCurrentMillSecond
 import com.shahad.o.util.RecordResult
 import com.shahad.o.util.Results
 import com.shahad.o.util.log
@@ -14,7 +14,7 @@ class ResultsUseCase(
         repository.sentResult(
             Results(
                 records = results,
-                date = getCurrentDate(),
+                date = getCurrentMillSecond(),
                 percent = calcHappyPercent(results)
             ))
     }

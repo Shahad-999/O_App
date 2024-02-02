@@ -8,6 +8,7 @@ import com.shahad.o.ui.viewModels.QuestionsViewModel
 import com.shahad.o.ui.viewModels.RecordsViewModel
 import com.shahad.o.ui.viewModels.SettingViewModel
 import com.shahad.o.ui.viewModels.SplashViewModel
+import com.shahad.o.ui.viewModels.StatisticsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,4 +21,5 @@ val viewModelModule = module {
     viewModel { SettingViewModel(get(),get(),get(),get()) }
     viewModel { QuestionsViewModel(get(),get()) }
     viewModel { CalendarViewModel(get()) }
+    viewModel { StatisticsViewModel(get()) }
 }

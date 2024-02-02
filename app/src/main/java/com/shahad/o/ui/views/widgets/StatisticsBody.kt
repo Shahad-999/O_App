@@ -21,11 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.patrykandpatrick.vico.compose.axis.horizontal.rememberBottomAxis
-import com.patrykandpatrick.vico.compose.axis.vertical.rememberStartAxis
-import com.patrykandpatrick.vico.compose.chart.Chart
-import com.patrykandpatrick.vico.compose.chart.line.lineChart
-import com.patrykandpatrick.vico.core.entry.entryModelOf
 //import com.patrykandpatrick.vico.compose.axis.horizontal.rememberBottomAxis
 //import com.patrykandpatrick.vico.compose.axis.vertical.rememberStartAxis
 //import com.patrykandpatrick.vico.compose.chart.Chart
@@ -34,6 +29,8 @@ import com.patrykandpatrick.vico.core.entry.entryModelOf
 //import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.shahad.o.ui.theme.OTheme
 import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -43,6 +40,10 @@ import kotlinx.datetime.toLocalDateTime
 fun StatisticsBody(
     modifier: Modifier = Modifier,
     backToHome: () -> Unit,
+    onSetStartDate: (LocalDate) -> Unit,
+    onSetEndDate: (LocalDate) -> Unit,
+    endDate: LocalDate,
+    startDate: LocalDate
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -77,18 +78,16 @@ fun StatisticsBody(
             ) {
                 DatePicker(
                     modifier = Modifier.weight(1f),
-                    currentDate = Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date,
-                    onSelectDate = {}
+                    currentDate =startDate,
+                    onSelectDate = onSetStartDate
                 )
                 Spacer(modifier = Modifier.width(32.dp))
 
 
                 DatePicker(
                     modifier = Modifier.weight(1f),
-                    currentDate = Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date,
-                    onSelectDate = {}
+                    currentDate = endDate,
+                    onSelectDate = onSetEndDate
                 )
             }
 

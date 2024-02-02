@@ -2,6 +2,7 @@ package com.shahad.o.domain
 
 import com.google.firebase.auth.AuthCredential
 import com.shahad.o.domain.models.DayResult
+import com.shahad.o.domain.models.Statistics
 import com.shahad.o.util.Record
 import com.shahad.o.util.Results
 import com.shahad.o.util.SignInResult
@@ -24,5 +25,6 @@ interface Repository {
     fun isNotificationsTurnIn(): Flow<Boolean>
     fun updateQuestions(questions: List<Record>)
     suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResult>?
+    suspend fun getStatistics(dateRange: ClosedRange<Long>): List<Statistics>?
 
 }

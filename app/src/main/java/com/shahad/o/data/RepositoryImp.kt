@@ -4,8 +4,10 @@ import com.google.firebase.auth.AuthCredential
 import com.shahad.o.data.dataSources.base.DataStoreDataSource
 import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.data.dataSources.mappers.toModel
+import com.shahad.o.data.dataSources.mappers.toStatistics
 import com.shahad.o.domain.Repository
 import com.shahad.o.domain.models.DayResult
+import com.shahad.o.domain.models.Statistics
 import com.shahad.o.util.Record
 import com.shahad.o.util.ReminderManger
 import com.shahad.o.util.Results
@@ -96,6 +98,14 @@ class RepositoryImp(
     override suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResult>? {
         return try {
             remoteDataSource.getCalendarData(startDate, endDate).toModel()
+        }catch (e: Exception){
+            null
+        }
+    }
+
+    override suspend fun getStatistics(dateRange: ClosedRange<Long>): List<Statistics>? {
+        return try {
+            remoteDataSource.getStatistics(dateRange.start, dateRange.endInclusive).toStatistics()
         }catch (e: Exception){
             null
         }

@@ -19,4 +19,5 @@ interface RemoteDataSource {
     fun updateQuestions(questions: List<Record>)
 
     suspend fun getCalendarData(startDate: Long,endDate: Long): List<DayResultDto>
+    suspend fun getStatistics(startDate: Long,endDate: Long): Map<Long,Double>
 }
