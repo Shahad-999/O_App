@@ -30,6 +30,7 @@ fun NavGraphBuilder.settingRoute(
 
     fun navToQuestionScreen() = navController.navigate(Screens.QuestionsScreen.route)
     fun navToCalendarScreen() = navController.navigate(Screens.CalendarScreen.route)
+    fun navToStatisticsScreen() = navController.navigate(Screens.StatisticsScreen.route)
     fun goToLoginScreen() = navController.go(Screens.SettingScreen,Screens.LoginScreen)
 
     animatedComposable(Screens.SettingScreen.route) {
@@ -37,6 +38,7 @@ fun NavGraphBuilder.settingRoute(
             backToHome = navController::navigateUp,
             navToQuestionsScreen = ::navToQuestionScreen,
             navToCalendarScreen = ::navToCalendarScreen,
+            navToStatisticsScreen = ::navToStatisticsScreen,
             goToLoginScreen = ::goToLoginScreen
         )
     }
@@ -51,6 +53,7 @@ fun SettingScreen(
     viewModel: SettingViewModel = koinViewModel(),
     navToQuestionsScreen: () -> Unit,
     navToCalendarScreen: () -> Unit,
+    navToStatisticsScreen: () -> Unit,
     goToLoginScreen: () -> Unit,
 ) {
     val isSignOut by viewModel.isSignOut.collectAsState()
@@ -71,7 +74,8 @@ fun SettingScreen(
                 onNotificationsStatusChange = viewModel::updateNotificationsStatus,
                 onClickQuestions = navToQuestionsScreen,
                 onClickCalendar = navToCalendarScreen,
-                onClickSignOut = viewModel::onClickSignOut
+                onClickSignOut = viewModel::onClickSignOut,
+                onClickStatistics = navToStatisticsScreen
             )
         },
         containerColor = OTheme.colors.background,

@@ -1,8 +1,10 @@
 package com.shahad.o
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,11 +26,13 @@ import com.shahad.o.ui.views.screens.questionsRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.splashRoute
+import com.shahad.o.ui.views.screens.statisticsRoute
 import com.shahad.o.util.ReminderManger
 import org.koin.androidx.compose.koinViewModel
 import org.koin.java.KoinJavaComponent.inject
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseMessaging.getInstance().subscribeToTopic("all")
         val reminderManger: ReminderManger by inject(ReminderManger::class.java)
@@ -41,6 +45,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
@@ -64,6 +69,7 @@ fun MainScreen(
                 settingRoute(navController)
                 questionsRoute(navController)
                 calendarRoute(navController)
+                statisticsRoute(navController)
             }
         }
     }

@@ -23,6 +23,7 @@ fun SettingBody(
     isNotificationsOn: StateFlow<Boolean>,
     onClickQuestions: () -> Unit,
     onClickCalendar: () -> Unit,
+    onClickStatistics: () -> Unit,
     onClickSignOut: () -> Unit
 ) {
     val isDark by isDarkTheme.collectAsState()
@@ -56,7 +57,10 @@ fun SettingBody(
         }
         SettingRow(
             icon = painterResource(id = R.drawable.pie_chart),
-            text = "Statistic"
+            text = "Statistic",
+            onClick = onClickStatistics
+
+
         )
         SettingRow(
             icon = painterResource(id = R.drawable.calendar),

@@ -8,6 +8,7 @@ sealed class  Screens(val route: String){
     object RecordScreen: Screens(RECORD_SCREEN_ROUTE)
     object QuestionsScreen: Screens(QUESTIONS_SCREEN_ROUTE)
     object CalendarScreen: Screens(CALENDAR_SCREEN_ROUTE)
+    object StatisticsScreen: Screens(STATISTICS_SCREEN_ROUTE)
 
     companion object{
         private const val SPLASH_SCREEN_ROUTE = "splash"
@@ -17,5 +18,6 @@ sealed class  Screens(val route: String){
         private const val RECORD_SCREEN_ROUTE = "record"
         private const val QUESTIONS_SCREEN_ROUTE = "questions"
         private const val CALENDAR_SCREEN_ROUTE = "calendar"
+        private const val STATISTICS_SCREEN_ROUTE = "statistics"
     }
 }
