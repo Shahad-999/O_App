@@ -64,7 +64,13 @@ class RemoteDataSourceImp(
     }
 
     override suspend fun createUserOwnQuestion(uid: String) {
-        sentQuestions(getDefaultRecords(), uid)
+        val query = fireStore.collection("questions")
+            .document(uid)
+            .get()
+            .await()
+        if(query.data==null){
+            sentQuestions(getDefaultRecords(), uid)
+        }
     }
 
     private suspend fun getDefaultRecords(): List<Record> {
