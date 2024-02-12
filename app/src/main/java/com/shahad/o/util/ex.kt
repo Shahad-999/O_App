@@ -1,6 +1,8 @@
 package com.shahad.o.util
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.shahad.o.util.Constant.THIRTY_DAYS
@@ -81,4 +83,13 @@ fun ClosedRange<Instant>.toEpochMillisecondsRange(): ClosedRange<Long> {
     return (this.start
         .toEpochMilliseconds()..this.endInclusive
         .toEpochMilliseconds())
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun Int.toDate(): kotlinx.datetime.LocalDate {
+   return kotlinx.datetime.LocalDate.fromEpochDays(this)
+}
+@RequiresApi(Build.VERSION_CODES.O)
+fun kotlinx.datetime.LocalDate.toDDMMMFormat(): String {
+    return "${this.dayOfMonth}/${this.month.name.take(3)}"
 }

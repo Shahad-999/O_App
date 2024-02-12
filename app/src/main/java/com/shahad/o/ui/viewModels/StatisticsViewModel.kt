@@ -42,7 +42,9 @@ class StatisticsViewModel(
         viewModelScope.launch {
             _startDate.value.log()
             _endDate.value.log()
-            statisticUseCase.call(_startDate.value.._endDate.value).log()
+            statisticUseCase.call(_startDate.value.._endDate.value)?.let {
+                _statistics.value = it
+            }
         }
     }
 

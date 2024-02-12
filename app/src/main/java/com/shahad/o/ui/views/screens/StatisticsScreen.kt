@@ -3,7 +3,6 @@ package com.shahad.o.ui.views.screens
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,9 +13,7 @@ import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.StatisticsViewModel
 import com.shahad.o.ui.views.widgets.StatisticsBody
-import com.shahad.o.util.getCurrentDate
-import kotlinx.datetime.LocalDate
-import org.koin.androidx.compose.koinViewModel
+import com.shahad.o.util.getCurrentDate import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.statisticsRoute(
@@ -31,7 +28,6 @@ fun NavGraphBuilder.statisticsRoute(
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun StatisticScreen(
@@ -41,6 +37,7 @@ fun StatisticScreen(
 ) {
     val startDate by statisticsViewModel.startDate.collectAsState(initial = getCurrentDate())
     val endDate by statisticsViewModel.endDate.collectAsState(initial = getCurrentDate())
+    val statistics by statisticsViewModel.statistics.collectAsState()
 
     StatisticsBody (
         modifier = modifier,
@@ -48,7 +45,8 @@ fun StatisticScreen(
         onSetStartDate= statisticsViewModel::setStartDate,
         onSetEndDate= statisticsViewModel::setEndDate,
         startDate= startDate,
-        endDate = endDate
+        endDate = endDate,
+        statistics = statistics,
     )
 }
 
