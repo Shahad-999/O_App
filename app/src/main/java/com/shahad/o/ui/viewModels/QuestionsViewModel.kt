@@ -51,7 +51,7 @@ class QuestionsViewModel(
         positiveAnswer: Boolean,
     ){
         val updatedList = (_records.value as QuestionsState.LoadedQuestions).questions.toList().apply {
-            this[order].positive_answer = positiveAnswer
+            this[order].positiveAnswer = positiveAnswer
         }
         _records.value = QuestionsState.LoadedQuestions(updatedList)
         _isChanged.value = true

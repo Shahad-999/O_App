@@ -17,6 +17,7 @@ class ReminderManger(
     private val context: Context
 ) {
 
+    @SuppressLint("ScheduleExactAlarm")
     fun startReminder(
         reminderTime: String = "08:00",
         reminderId: Int = REMINDER_NOTIFICATION_REQUEST_CODE

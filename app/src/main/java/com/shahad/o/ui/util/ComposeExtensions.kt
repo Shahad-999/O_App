@@ -58,7 +58,6 @@ fun DrawScope.gradiantCircle(
     rotate(
         rotateAnimation
     ) {
-
         drawArc(
             brush = Brush.sweepGradient(colors),
             startAngle = 0f,

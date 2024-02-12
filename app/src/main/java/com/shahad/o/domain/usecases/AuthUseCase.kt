@@ -7,16 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class AuthUseCase(
     private val repository: Repository
-): BaseUseCase() {
-
-//    fun login(email: String, password: String): Flow<AuthResult> {
-//        return repository.login(email, password)
-//    }
-//
-//    fun register(email: String, password: String): Flow<AuthResult> {
-//        return repository.register(email,password)
-//    }
-
+) : BaseUseCase() {
 
     fun googleSignIn(credential: AuthCredential): Flow<SignInResult> {
         return repository.googleSignIn(credential)

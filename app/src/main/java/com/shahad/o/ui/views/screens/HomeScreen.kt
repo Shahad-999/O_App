@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.HomeViewModel

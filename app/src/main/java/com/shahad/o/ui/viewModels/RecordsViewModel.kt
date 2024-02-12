@@ -82,9 +82,9 @@ class RecordsViewModel(
                     RecordResult(
                         question = this.question,
                         weight = this.weight,
-                        isPositive = this.positive_answer,
+                        isPositive = this.positiveAnswer,
                         answer = answer,
-                        isAnswerPositive =  this.positive_answer == state
+                        isAnswerPositive =  this.positiveAnswer == state
                     )
                 )
             }

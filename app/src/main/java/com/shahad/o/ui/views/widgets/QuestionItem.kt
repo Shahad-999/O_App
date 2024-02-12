@@ -89,7 +89,7 @@ fun QuestionItem(
                 ),
             )
             Spacer(modifier = Modifier.weight(1F))
-            ChipGroup(items = listOf("Yes","No"), onSelected = { onPositiveAnswerChange(question.order,it=="Yes") }, selected = question.positive_answer.toPositiveAnswer())
+            ChipGroup(items = listOf("Yes","No"), onSelected = { onPositiveAnswerChange(question.order,it=="Yes") }, selected = question.positiveAnswer.toPositiveAnswer())
 
         }
     }

@@ -19,5 +19,5 @@ val dataSourceModule = module {
     single<FirebaseAuth> { FirebaseAuth.getInstance() }
     single<FirebaseFirestore>{ Firebase.firestore}
     single<DataStoreDataSource> { DataStoreDataSourceImp(androidContext()) }
-    single<RemoteDataSource> { RemoteDataSourceImp(get(),get(),get()) }
+    single<RemoteDataSource> { RemoteDataSourceImp(get(),get()) }
 }

@@ -111,7 +111,7 @@ fun StartButton(
     ) {
 
         val colors = OTheme.colors.gradiantColors
-        val infiniteTransition = rememberInfiniteTransition()
+        val infiniteTransition = rememberInfiniteTransition(label = "")
         val rotateAnimation by infiniteTransition.animateFloat(
             initialValue = 0f,
             targetValue = 360f,
@@ -120,7 +120,7 @@ fun StartButton(
                     durationMillis = 1000,
                     easing = LinearEasing
                 )
-            )
+            ), label = ""
         )
 
         OCircle(

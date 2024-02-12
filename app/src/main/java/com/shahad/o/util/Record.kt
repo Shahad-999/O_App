@@ -4,6 +4,6 @@ data class Record(
     val order: Int,
     var question: String,
     val imageUrl: String,
-    var positive_answer: Boolean,
+    var positiveAnswer: Boolean,
     val weight: Long,
 )

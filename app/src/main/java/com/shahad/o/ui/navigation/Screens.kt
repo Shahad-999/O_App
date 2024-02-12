@@ -1,14 +1,14 @@
 package com.shahad.o.ui.navigation
 
 sealed class  Screens(val route: String){
-    object HomeScreen: Screens(HOME_SCREEN_ROUTE)
-    object SplashScreen: Screens(SPLASH_SCREEN_ROUTE)
-    object LoginScreen: Screens(LOGIN_SCREEN_ROUTE)
-    object SettingScreen: Screens(SETTING_SCREEN_ROUTE)
-    object RecordScreen: Screens(RECORD_SCREEN_ROUTE)
-    object QuestionsScreen: Screens(QUESTIONS_SCREEN_ROUTE)
-    object CalendarScreen: Screens(CALENDAR_SCREEN_ROUTE)
-    object StatisticsScreen: Screens(STATISTICS_SCREEN_ROUTE)
+    data object HomeScreen: Screens(HOME_SCREEN_ROUTE)
+    data object SplashScreen: Screens(SPLASH_SCREEN_ROUTE)
+    data object LoginScreen: Screens(LOGIN_SCREEN_ROUTE)
+    data object SettingScreen: Screens(SETTING_SCREEN_ROUTE)
+    data object RecordScreen: Screens(RECORD_SCREEN_ROUTE)
+    data object QuestionsScreen: Screens(QUESTIONS_SCREEN_ROUTE)
+    data object CalendarScreen: Screens(CALENDAR_SCREEN_ROUTE)
+    data object StatisticsScreen: Screens(STATISTICS_SCREEN_ROUTE)
 
     companion object{
         private const val SPLASH_SCREEN_ROUTE = "splash"

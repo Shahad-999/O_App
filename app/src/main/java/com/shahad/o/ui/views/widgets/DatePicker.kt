@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shahad.o.ui.theme.OTheme
-import com.shahad.o.util.log
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
