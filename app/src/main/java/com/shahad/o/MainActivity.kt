@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.ui.util.UserState
 import com.shahad.o.ui.viewModels.MainViewModel
 import com.shahad.o.ui.views.screens.calendarRoute
 import com.shahad.o.ui.views.screens.homeRoute
@@ -24,7 +25,6 @@ import com.shahad.o.ui.views.screens.loginRoute
 import com.shahad.o.ui.views.screens.questionsRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
-import com.shahad.o.ui.views.screens.splashRoute
 import com.shahad.o.ui.views.screens.statisticsRoute
 import com.shahad.o.util.ReminderManger
 import org.koin.androidx.compose.koinViewModel
@@ -48,8 +48,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     mainViewModel: MainViewModel = koinViewModel()
-) {
+){
     val isDarkTheme by mainViewModel.isDarkMode.collectAsState()
+    val initialScreen = if(mainViewModel.state==UserState.Founded) Screens.HomeScreen.route else Screens.LoginScreen.route
     OTheme(isDarkTheme) {
         val navController = rememberNavController()
         Scaffold(
@@ -57,10 +58,9 @@ fun MainScreen(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screens.SplashScreen.route,
+                startDestination = initialScreen,
                 modifier = Modifier.padding(it)
             ) {
-                splashRoute(navController)
                 homeRoute(navController)
                 loginRoute(navController)
                 recordRoute(navController)

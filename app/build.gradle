@@ -125,4 +125,8 @@ dependencies {
     //charts
     implementation("com.patrykandpatrick.vico:compose:1.13.1")
 
+    //splash screen
+    implementation "androidx.core:core-splashscreen:1.0.0"
+
+
 }
