@@ -1,7 +1,7 @@
 package com.shahad.o.ui.views.widgets
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,50 +28,62 @@ fun SettingBody(
 ) {
     val isDark by isDarkTheme.collectAsState()
     val isNotificationsTurnOn by isNotificationsOn.collectAsState()
-    Column(
+    LazyColumn(
         modifier = modifier
             .padding(horizontal = 24.dp)
     ) {
-        ProfileSection(modifier = Modifier.padding(top = 8.dp, bottom = 16.dp), user = userInfo)
-
-        SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
-            OSwitch(
-                checked = isDark,
-                onCheckedChange = inThemeChange,
+        item {
+            ProfileSection(modifier = Modifier.padding(top = 8.dp, bottom = 16.dp), user = userInfo)
+        }
+        item{
+            SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
+                OSwitch(
+                    checked = isDark,
+                    onCheckedChange = inThemeChange,
+                )
+            }
+        }
+        item{
+            SettingRow(
+                icon = painterResource(id = R.drawable.question_mark),
+                text = "Questions",
+                onClick = onClickQuestions
             )
         }
+        item{
+            SettingRow(
+                icon = painterResource(id = R.drawable.notification),
+                text = "Notifications"
+            ) {
+                OSwitch(
+                    checked = isNotificationsTurnOn,
+                    onCheckedChange = onNotificationsStatusChange,
+                )
+            }
+        }
+        item{
+            SettingRow(
+                icon = painterResource(id = R.drawable.pie_chart),
+                text = "Statistic",
+                onClick = onClickStatistics
 
-        SettingRow(
-            icon = painterResource(id = R.drawable.question_mark),
-            text = "Questions",
-            onClick = onClickQuestions
-        )
-        SettingRow(
-            icon = painterResource(id = R.drawable.notification),
-            text = "Notifications"
-        ) {
-            OSwitch(
-                checked = isNotificationsTurnOn,
-                onCheckedChange = onNotificationsStatusChange,
+
             )
         }
-        SettingRow(
-            icon = painterResource(id = R.drawable.pie_chart),
-            text = "Statistic",
-            onClick = onClickStatistics
-
-
-        )
-        SettingRow(
-            icon = painterResource(id = R.drawable.calendar),
-            text = "Calendar",
-            onClick = onClickCalendar
-        )
-        SettingRow(
-            icon = painterResource(id = R.drawable.sign_out),
-            text = "Sign out",
-            onClick = onClickSignOut
-        )
+        item{
+            SettingRow(
+                icon = painterResource(id = R.drawable.calendar),
+                text = "Calendar",
+                onClick = onClickCalendar
+            )
+        }
+        item{
+            SettingRow(
+                icon = painterResource(id = R.drawable.sign_out),
+                text = "Sign out",
+                onClick = onClickSignOut
+            )
+        }
     }
 }
 

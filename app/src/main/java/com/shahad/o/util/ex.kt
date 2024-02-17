@@ -1,7 +1,9 @@
 package com.shahad.o.util
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -92,4 +94,9 @@ fun Int.toDate(): kotlinx.datetime.LocalDate {
 @RequiresApi(Build.VERSION_CODES.O)
 fun kotlinx.datetime.LocalDate.toDDMMMFormat(): String {
     return "${this.dayOfMonth}/${this.month.name.take(3)}"
+}
+
+
+fun Context.showToast(message: String, length: Int = Toast.LENGTH_SHORT){
+    Toast.makeText(this, message, length).show()
 }

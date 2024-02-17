@@ -1,6 +1,11 @@
 package com.shahad.o.ui.views.screens
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -8,7 +13,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.shahad.o.R
@@ -20,6 +27,7 @@ import com.shahad.o.ui.viewModels.SettingViewModel
 import com.shahad.o.ui.views.widgets.NavigationAppBar
 import com.shahad.o.ui.views.widgets.SettingBody
 import com.shahad.o.util.UserData
+import com.shahad.o.util.showToast
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -30,7 +38,7 @@ fun NavGraphBuilder.settingRoute(
     fun navToQuestionScreen() = navController.navigate(Screens.QuestionsScreen.route)
     fun navToCalendarScreen() = navController.navigate(Screens.CalendarScreen.route)
     fun navToStatisticsScreen() = navController.navigate(Screens.StatisticsScreen.route)
-    fun goToLoginScreen() = navController.go(Screens.SettingScreen,Screens.LoginScreen)
+    fun goToLoginScreen() = navController.go(Screens.SettingScreen, Screens.LoginScreen)
 
     animatedComposable(Screens.SettingScreen.route) {
         SettingScreen(
@@ -55,13 +63,27 @@ fun SettingScreen(
     goToLoginScreen: () -> Unit,
 ) {
     val isSignOut by viewModel.isSignOut.collectAsState()
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            context.showToast("ستتلقى اشعارات يوميه")
+        } else if (viewModel.isNotificationsOn.value) {
+
+            context.showToast("يجب اعطاء صلاحيه لتلقي الاشعارات")
+        }
+    }
+
 
     Scaffold(
         modifier = modifier,
-        topBar = { NavigationAppBar(
-            text =  stringResource(R.string.settings),
-            backToHome = backToHome,
-        ) },
+        topBar = {
+            NavigationAppBar(
+                text = stringResource(R.string.settings),
+                backToHome = backToHome,
+            )
+        },
         content = {
             SettingBody(
                 modifier = Modifier.padding(it),
@@ -79,9 +101,27 @@ fun SettingScreen(
         containerColor = OTheme.colors.background,
     )
 
-    LaunchedEffect(isSignOut){
-        if(isSignOut){
+    LaunchedEffect(Unit) {
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) -> {
+
+
+            }
+
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        }
+    }
+    LaunchedEffect(isSignOut) {
+        if (isSignOut) {
             goToLoginScreen()
         }
     }
 }
+
