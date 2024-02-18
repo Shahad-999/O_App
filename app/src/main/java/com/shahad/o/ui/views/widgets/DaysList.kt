@@ -133,7 +133,7 @@ fun DaysList(
     }
 
     LaunchedEffect(initialIndex) {
-        daysState.scrollAndCentralizeItem(initialIndex, half + 50)
+        daysState.scrollAndCentralizeItem(initialIndex, half - 50)
     }
 
     LaunchedEffect(daysState.isScrollInProgress) {

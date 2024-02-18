@@ -26,6 +26,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
+import com.shahad.o.util.log
 import kotlin.math.roundToInt
 
 fun NavHostController.go(source: Screens, destination: Screens) {
@@ -97,8 +98,8 @@ suspend fun LazyListState.scrollAndCentralizeItem(index: Int, padding: Double): 
     if (itemInfo != null) {
         val center =
             this@scrollAndCentralizeItem.layoutInfo.viewportEndOffset / 2 - padding.roundToInt()
-        val childCenter = itemInfo.offset + (itemInfo.size / 2)
-        this@scrollAndCentralizeItem.animateScrollBy((childCenter - center).toFloat())
+        val childCenter = itemInfo.offset - (itemInfo.size / 2)
+        this@scrollAndCentralizeItem.animateScrollBy((childCenter+center).toFloat())
     } else {
         this@scrollAndCentralizeItem.animateScrollToItem(index, padding.roundToInt())
     }
