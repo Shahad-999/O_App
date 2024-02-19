@@ -10,7 +10,7 @@ class ResultsUseCase(
     private val repository: Repository
 ) : BaseUseCase() {
 
-    fun sendResult(results: List<RecordResult>) {
+    suspend fun sendResult(results: List<RecordResult>) {
         repository.sentResult(
             Results(
                 records = results,

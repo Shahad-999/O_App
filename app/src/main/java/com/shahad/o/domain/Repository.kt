@@ -14,7 +14,7 @@ interface Repository {
     fun signOut()
     fun getUser(): UserData?
     suspend fun getRecords(): List<Record>
-    fun sentResult(results: Results)
+    suspend fun sentResult(results: Results)
     suspend fun updateMode(isDark: Boolean)
     fun isDarkMode(): Flow<Boolean>
 
@@ -27,4 +27,6 @@ interface Repository {
     suspend fun getCalendarData(startDate: Long, endDate: Long): List<DayResult>?
     suspend fun getStatistics(dateRange: ClosedRange<Long>): List<Statistics>?
 
+    fun getTodayStatus(): Flow<Boolean>
+    suspend fun checkTodayRecordStatus()
 }

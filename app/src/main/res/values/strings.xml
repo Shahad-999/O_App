@@ -7,7 +7,9 @@
     <string name="bad_day">"Let’s make tomorrow better "</string>
     <string name="hello">Hello \n</string>
     <string name="tell_me_about_your_day">Tell Me About\nYour Day</string>
+    <string name="you_already_upload">Do you want to update Records ?</string>
     <string name="start">START</string>
+    <string name="update">UPDATE</string>
     <string name="reminders_notification_channel_id">channel_id\n</string>
     <string name="reminders_notification_channel_name">morning\n</string>
     <string name="save">Save</string>

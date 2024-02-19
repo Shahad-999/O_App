@@ -12,9 +12,11 @@ import com.shahad.o.util.Record
 import com.shahad.o.util.Results
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
+import com.shahad.o.util.log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import okhttp3.internal.wait
 
 class RepositoryImp(
     private val datastoreDataSource: DataStoreDataSource,
@@ -65,10 +67,16 @@ class RepositoryImp(
         return remoteDataSource.getRecords()
     }
 
-    override fun sentResult(results: Results) {
+    override suspend fun sentResult(results: Results) {
         remoteDataSource.sentResult(results)
+        datastoreDataSource.updateTodayStatus(true)
     }
 
+    override suspend fun checkTodayRecordStatus(){
+        val status = remoteDataSource.getIfThereIsRecordToday()
+        status.log(tag = "O_APP_STATUS IS ")
+        datastoreDataSource.updateTodayStatus(status)
+    }
     override suspend fun updateMode(isDark: Boolean) {
         datastoreDataSource.updateMode(isDark)
     }
@@ -107,6 +115,10 @@ class RepositoryImp(
         }catch (e: Exception){
             null
         }
+    }
+
+    override fun getTodayStatus(): Flow<Boolean> {
+        return datastoreDataSource.isTodayDone()
     }
 
 }

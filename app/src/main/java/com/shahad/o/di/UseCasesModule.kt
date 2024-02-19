@@ -1,8 +1,10 @@
 package com.shahad.o.di
 
 import com.shahad.o.domain.usecases.AuthUseCase
+import com.shahad.o.domain.usecases.CheckTodayStatusUseCase
 import com.shahad.o.domain.usecases.GetCalendar
 import com.shahad.o.domain.usecases.GetStatisticUseCase
+import com.shahad.o.domain.usecases.GetTodayStatus
 import com.shahad.o.domain.usecases.NotificationsUseCase
 import com.shahad.o.domain.usecases.RecordsUseCase
 import com.shahad.o.domain.usecases.ResultsUseCase
@@ -23,4 +25,6 @@ val useCasesModule = module {
     single { SignOutUseCase(get()) }
     single { GetCalendar(get()) }
     single { GetStatisticUseCase(get()) }
+    single { GetTodayStatus(get()) }
+    single { CheckTodayStatusUseCase(get()) }
 }

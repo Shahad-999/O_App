@@ -2,6 +2,8 @@ package com.shahad.o.ui.views.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -38,12 +40,14 @@ fun HomeScreen(
     navToRecord: () -> Unit,
     navToSetting: () -> Unit,
 ) {
+    val todayStatus: Boolean by viewModel.todayStatus.collectAsState()
     HomeBody(
         modifier = modifier,
         imageUrl = viewModel.userData?.profilePictureUrl,
         name = viewModel.userData?.userName?.split(" ")?.firstOrNull(),
         onClickStart = navToRecord,
         onClickSetting = navToSetting,
+        isUploadToday = todayStatus
     )
 
 }

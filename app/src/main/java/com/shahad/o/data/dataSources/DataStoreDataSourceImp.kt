@@ -56,6 +56,20 @@ class DataStoreDataSourceImp(
         }
     }
 
+    override suspend fun updateTodayStatus(isDone: Boolean) {
+        val preferencesKey = booleanPreferencesKey(TODAY_STATUS_KEY)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = isDone
+        }
+    }
+
+    override fun isTodayDone(): Flow<Boolean> {
+        val preferencesKey = booleanPreferencesKey(TODAY_STATUS_KEY)
+        return context.dataStore.data.map {
+            it[preferencesKey].log() == true
+        }
+    }
+
     override suspend fun updateNotificationStatus(isTurn: Boolean) {
         val preferencesKey = booleanPreferencesKey(NOTIFICATION_KEY)
         context.dataStore.edit { preferences ->
@@ -74,5 +88,6 @@ class DataStoreDataSourceImp(
         private const val TOKEN_KEY = "TOKEN"
         private const val THEME_MODE_KEY = "THEME_MODE"
         private const val NOTIFICATION_KEY = "NOTIFICATION"
+        private const val TODAY_STATUS_KEY = "TODAY_STATUS"
     }
 }

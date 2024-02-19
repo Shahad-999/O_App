@@ -25,13 +25,17 @@ import com.shahad.o.ui.views.screens.questionsRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.statisticsRoute
+import com.shahad.o.util.ReminderManger
 import org.koin.androidx.compose.koinViewModel
+import org.koin.java.KoinJavaComponent.inject
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val reminderManger: ReminderManger by inject(ReminderManger::class.java)
+        reminderManger.startReminder()
         super.onCreate(savedInstanceState)
-        setContent {
+         setContent {
             MainScreen()
         }
     }

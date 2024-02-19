@@ -101,6 +101,7 @@ fun OutlineOButton(
 @Composable
 fun StartButton(
     modifier: Modifier = Modifier,
+    text: String = stringResource(R.string.start),
     onClick: () -> Unit
 ){
     Box(
@@ -136,7 +137,7 @@ fun StartButton(
             )
         }
         Text(
-            text = stringResource(R.string.start),
+            text = text,
             style = TextStyle(
                 color = OTheme.colors.primary,
                 fontSize = 24.sp,

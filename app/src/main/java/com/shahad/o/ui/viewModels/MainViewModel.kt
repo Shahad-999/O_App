@@ -2,6 +2,7 @@ package com.shahad.o.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shahad.o.domain.usecases.CheckTodayStatusUseCase
 import com.shahad.o.domain.usecases.NotificationsUseCase
 import com.shahad.o.domain.usecases.ThemeUseCase
 import com.shahad.o.domain.usecases.UserInfoUseCase
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val themeUseCase: ThemeUseCase,
     private val notificationsUseCase: NotificationsUseCase,
-    private val userInfoUseCase: UserInfoUseCase
+    private val userInfoUseCase: UserInfoUseCase,
 ) : ViewModel() {
 
     private val _isDarkMode = MutableStateFlow(false)
@@ -38,6 +39,7 @@ class MainViewModel(
             UserState.Founded
         }
     }
+
 
     private fun setupNotifications(){
         viewModelScope.launch {

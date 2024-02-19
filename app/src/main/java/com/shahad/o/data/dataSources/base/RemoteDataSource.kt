@@ -13,7 +13,7 @@ interface RemoteDataSource {
     fun signOut()
     fun getUser(): UserData?
     suspend fun getRecords(): List<Record>
-    fun sentResult(results: Results)
+    suspend fun sentResult(results: Results)
 
     suspend fun createUserOwnQuestion(uid: String)
     fun updateQuestions(questions: List<Record>)
@@ -22,4 +22,5 @@ interface RemoteDataSource {
     suspend fun getStatistics(startDate: Long,endDate: Long): Map<Long,Double>
      fun subscribeToNotifications()
      fun unsubscribeToNotifications()
+    suspend fun getIfThereIsRecordToday(): Boolean
 }

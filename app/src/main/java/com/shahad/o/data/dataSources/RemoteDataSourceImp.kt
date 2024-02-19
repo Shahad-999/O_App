@@ -15,6 +15,10 @@ import com.shahad.o.util.UserData
 import com.shahad.o.util.log
 import com.shahad.o.util.toDataClass
 import kotlinx.coroutines.tasks.await
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toLocalDateTime
 
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
@@ -56,12 +60,13 @@ class RemoteDataSourceImp(
     }
 
 
-    override fun sentResult(results: Results) {
+    override suspend fun sentResult(results: Results) {
         getUser()?.let {
             fireStore.collection("users_records").document(it.userId)
                 .collection("Calendar")
                 .document(results.date.toString())
                 .set(results.toFirebaseDto())
+                .await()
         }
     }
 
@@ -102,7 +107,19 @@ class RemoteDataSourceImp(
             }
         }
         return emptyList()
+    }
 
+    override suspend fun getIfThereIsRecordToday(): Boolean{
+        val today =Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
+        today.log()
+        getUser()?.let {
+            val ll = fireStore.collection("users_records").document(it.userId)
+                .collection("Calendar")
+                .whereEqualTo("date",today)
+                .get().await()
+            return ll.documents.isNotEmpty()
+        }
+        return false
     }
 
     override suspend fun getStatistics(startDate: Long, endDate: Long): Map<Long, Double> {

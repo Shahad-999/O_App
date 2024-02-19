@@ -2,13 +2,17 @@ package com.shahad.o.ui.views.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +29,7 @@ fun HomeBody(
     modifier: Modifier = Modifier,
     imageUrl: String?,
     name: String?,
+    isUploadToday: Boolean,
     onClickSetting: () -> Unit,
     onClickStart: () -> Unit
 ) {
@@ -43,7 +48,9 @@ fun HomeBody(
         )
 
         Text(
-            text = stringResource(R.string.tell_me_about_your_day),
+            text = if (isUploadToday) stringResource(R.string.you_already_upload) else stringResource(
+                R.string.tell_me_about_your_day
+            ),
             style = TextStyle(
                 color = primaryColor,
                 fontSize = 28.sp,
@@ -52,8 +59,13 @@ fun HomeBody(
             ),
             modifier = Modifier
                 .padding(top = 40.dp)
+                .fillMaxWidth(0.7f)
         )
-        StartButton(modifier = Modifier, onClick = onClickStart)
+        StartButton(
+            modifier = Modifier,
+            onClick = onClickStart,
+            text = if (isUploadToday) stringResource(R.string.update) else stringResource(R.string.start)
+        )
     }
 }
 
@@ -68,7 +80,13 @@ fun HomeBody(
 fun HomeScreenPreview() {
     OTheme {
         Surface {
-            HomeBody(imageUrl = "", onClickSetting = { }, onClickStart = { }, name = "Shahad")
+            HomeBody(
+                imageUrl = "",
+                onClickSetting = { },
+                isUploadToday = false,
+                onClickStart = { },
+                name = "Shahad"
+            )
         }
     }
 }
