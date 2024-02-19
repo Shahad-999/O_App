@@ -5,11 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.shahad.o.domain.usecases.CheckTodayStatusUseCase
 import com.shahad.o.domain.usecases.GetTodayStatus
 import com.shahad.o.domain.usecases.UserInfoUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.SharingStarted.Companion.Lazily
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 

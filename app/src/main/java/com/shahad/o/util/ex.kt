@@ -1,18 +1,12 @@
 package com.shahad.o.util
 
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.shahad.o.MainActivity
-import com.shahad.o.R
 import com.shahad.o.util.Constant.THIRTY_DAYS
 import com.shahad.o.util.Constant.THIRTY_ONE_DAYS
 import com.shahad.o.util.Constant.TWENTY_DAYS
@@ -105,25 +99,4 @@ fun kotlinx.datetime.LocalDate.toDDMMMFormat(): String {
 
 fun Context.showToast(message: String, length: Int = Toast.LENGTH_SHORT){
     Toast.makeText(this, message, length).show()
-}
-
-fun NotificationManager.sendReminderNotification(
-    applicationContext: Context,
-    channelId: String,
-) {
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
-    val pendingIntent = PendingIntent.getActivity(
-        applicationContext,
-        1,
-        contentIntent,
-        PendingIntent.FLAG_MUTABLE
-    )
-    val builder = NotificationCompat.Builder(applicationContext, channelId)
-        .setContentTitle("GOOD MORNING")
-        .setContentText("HAVE A NICE DAY")
-        .setSmallIcon(R.drawable.notification)
-        .setContentIntent(pendingIntent)
-        .setAutoCancel(true)
-
-    notify(1, builder.build())
 }

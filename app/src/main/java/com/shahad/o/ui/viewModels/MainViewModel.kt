@@ -2,7 +2,6 @@ package com.shahad.o.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shahad.o.domain.usecases.CheckTodayStatusUseCase
 import com.shahad.o.domain.usecases.NotificationsUseCase
 import com.shahad.o.domain.usecases.ThemeUseCase
 import com.shahad.o.domain.usecases.UserInfoUseCase
