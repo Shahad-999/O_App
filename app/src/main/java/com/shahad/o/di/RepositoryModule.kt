@@ -9,7 +9,6 @@ val repositoryModule = module {
         RepositoryImp(
             datastoreDataSource = get(),
             remoteDataSource = get(),
-            reminderManger = get()
         )
     }
 }

@@ -4,6 +4,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.shahad.o.data.dataSources.base.RemoteDataSource
 import com.shahad.o.data.dataSources.mappers.toFirebaseDto
 import com.shahad.o.data.dataSources.mappers.toRecords
@@ -18,6 +19,7 @@ import kotlinx.coroutines.tasks.await
 class RemoteDataSourceImp(
     private val firebaseAuth: FirebaseAuth,
     private val fireStore: FirebaseFirestore,
+    private val firebaseMessaging: FirebaseMessaging
 ) : RemoteDataSource {
     override suspend fun signIn(credential: AuthCredential): AuthResult {
         return firebaseAuth.signInWithCredential(credential).await()
@@ -124,5 +126,14 @@ class RemoteDataSourceImp(
             .document(uid)
             .set(questions.toFirebaseDto())
     }
+
+    override fun subscribeToNotifications() {
+        firebaseMessaging.subscribeToTopic("all")
+    }
+
+    override fun unsubscribeToNotifications() {
+        firebaseMessaging.unsubscribeFromTopic("all")
+    }
+
 
 }

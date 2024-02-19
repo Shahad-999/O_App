@@ -9,7 +9,6 @@ import com.shahad.o.domain.Repository
 import com.shahad.o.domain.models.DayResult
 import com.shahad.o.domain.models.Statistics
 import com.shahad.o.util.Record
-import com.shahad.o.util.ReminderManger
 import com.shahad.o.util.Results
 import com.shahad.o.util.SignInResult
 import com.shahad.o.util.UserData
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.flow
 class RepositoryImp(
     private val datastoreDataSource: DataStoreDataSource,
     private val remoteDataSource: RemoteDataSource,
-    private val reminderManger: ReminderManger
 ) : Repository {
 
     override fun signOut() {
@@ -80,7 +78,7 @@ class RepositoryImp(
     }
 
     override fun changeNotificationsStatus(isTurnON: Boolean) {
-        if(isTurnON) reminderManger.startAllNotifications() else reminderManger.stopAllNotifications()
+        if(isTurnON) remoteDataSource.subscribeToNotifications() else remoteDataSource.unsubscribeToNotifications()
     }
 
     override suspend fun storeNotificationsStatus(isTurnON: Boolean) {

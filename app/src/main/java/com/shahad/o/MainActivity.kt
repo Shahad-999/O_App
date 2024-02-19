@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.messaging.FirebaseMessaging
 import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.theme.OTheme
 import com.shahad.o.ui.util.UserState
@@ -26,16 +25,11 @@ import com.shahad.o.ui.views.screens.questionsRoute
 import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.statisticsRoute
-import com.shahad.o.util.ReminderManger
 import org.koin.androidx.compose.koinViewModel
-import org.koin.java.KoinJavaComponent.inject
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        FirebaseMessaging.getInstance().subscribeToTopic("all")
-        val reminderManger: ReminderManger by inject(ReminderManger::class.java)
-        reminderManger.createNotificationsChannels()
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()
@@ -48,9 +42,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     mainViewModel: MainViewModel = koinViewModel()
-){
+) {
     val isDarkTheme by mainViewModel.isDarkMode.collectAsState()
-    val initialScreen = if(mainViewModel.state==UserState.Founded) Screens.HomeScreen.route else Screens.LoginScreen.route
+    val initialScreen =
+        if (mainViewModel.state == UserState.Founded) Screens.HomeScreen.route else Screens.LoginScreen.route
     OTheme(isDarkTheme) {
         val navController = rememberNavController()
         Scaffold(

@@ -20,4 +20,6 @@ interface RemoteDataSource {
 
     suspend fun getCalendarData(startDate: Long,endDate: Long): List<DayResultDto>
     suspend fun getStatistics(startDate: Long,endDate: Long): Map<Long,Double>
+     fun subscribeToNotifications()
+     fun unsubscribeToNotifications()
 }
