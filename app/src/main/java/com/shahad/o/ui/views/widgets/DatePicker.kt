@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.shahad.o.R
 import com.shahad.o.ui.theme.OTheme
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
@@ -32,6 +33,7 @@ fun DatePicker(
 ) {
     val picker = DatePickerDialog(
         LocalContext.current,
+        R.style.DatePickerTheme,
         { _, year, month, dayOfMonth ->
             onSelectDate(LocalDate(year=year, month = Month.of(month+1),dayOfMonth=dayOfMonth))
         },
@@ -48,6 +50,7 @@ fun DatePicker(
                 shape = RoundedCornerShape(24.dp)
             )
             .clickable {
+
                 picker.show()
             },
         contentAlignment = Alignment.Center

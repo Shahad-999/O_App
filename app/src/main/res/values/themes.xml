@@ -6,4 +6,8 @@
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/logo</item>
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
     </style>
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">#FF4A7995</item>
+        <item name="colorAccent">#FF4A7995</item>
+    </style>
 </resources>
