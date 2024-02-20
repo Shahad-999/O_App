@@ -9,31 +9,34 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.shahad.o.ui.theme.OTheme
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.shahad.o.ui.theme.OTheme
 
 @Composable
 fun RecordButtons(
     modifier: Modifier = Modifier,
     onClickYes: () -> Unit,
-    onClickNo: () -> Unit
+    onClickNo: () -> Unit,
+    isYesPositive: Boolean
 ){
 
+    val yesBackgroundColor = if(isYesPositive)  Color.White else  Color(0x94FFFFFF)
+    val noBackgroundColor = if(isYesPositive)   Color(0x94FFFFFF) else Color.White
     Row(modifier = modifier) {
-        RecordButton(text = "YES", modifier =  Modifier.weight(1F), onClick = onClickYes)
+        RecordButton(text = "YES", modifier =  Modifier.weight(1F), onClick = onClickYes, backgroundColor = yesBackgroundColor)
         Spacer(modifier = Modifier.width(24.dp))
-        RecordButton(text = "NO", modifier =  Modifier.weight(1F), onClick = onClickNo, backgroundColor = Color(0x94FFFFFF))
+        RecordButton(text = "NO", modifier =  Modifier.weight(1F), onClick = onClickNo, backgroundColor = noBackgroundColor)
     }
 }
 
@@ -69,7 +72,7 @@ fun RecordButton(
 fun RecordButtonsPreview() {
     OTheme {
         Surface {
-            RecordButtons( onClickYes = {}, onClickNo = {})
+            RecordButtons(onClickYes = {}, onClickNo = {}, isYesPositive = true)
         }
     }
 }

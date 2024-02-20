@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shahad.o.util.Record
 import com.shahad.o.ui.theme.OTheme
+import com.shahad.o.util.Record
 
 @Composable
 fun QuestionsView(
@@ -38,6 +38,7 @@ fun QuestionsView(
                     .weight(1F),
                 question = questions[currentIndex].question,
                 imageUrl = questions[currentIndex].imageUrl,
+                isYesPositive = questions[currentIndex].positiveAnswer,
                 onClickYes = onClickYes,
                 onClickNo = onClickNo
             )

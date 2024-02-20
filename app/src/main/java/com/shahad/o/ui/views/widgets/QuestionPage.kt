@@ -29,7 +29,8 @@ fun QuestionPage(
     question: String,
     imageUrl: String,
     onClickYes: () -> Unit,
-    onClickNo: () -> Unit
+    onClickNo: () -> Unit,
+    isYesPositive: Boolean
 ) {
     Column(
         modifier = modifier
@@ -65,7 +66,8 @@ fun QuestionPage(
         RecordButtons(
             modifier = Modifier.fillMaxWidth(),
             onClickYes = onClickYes,
-            onClickNo = onClickNo
+            onClickNo = onClickNo,
+            isYesPositive = isYesPositive
         )
         Spacer(modifier = Modifier.weight(0.11F))
     }
@@ -81,7 +83,9 @@ fun QuestionPagePreview() {
                 question = "Are you happy? ",
                 imageUrl = "",
                 onClickYes = {},
-                onClickNo = {})
+                onClickNo = {},
+                isYesPositive = false
+            )
         }
     }
 }

@@ -10,6 +10,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.shahad.o.R
@@ -53,6 +55,10 @@ fun QuestionsScreen(
                     if (isChange) {
                         Text(
                             text = stringResource(R.string.save),
+                            style = TextStyle(
+                                color = OTheme.colors.shade1,
+                                fontSize = 16.sp
+                            ),
                             modifier = Modifier
                                 .clickable {
                                     questionsViewModel.onClickSave()

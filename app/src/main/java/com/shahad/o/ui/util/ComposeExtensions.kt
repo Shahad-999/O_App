@@ -26,7 +26,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shahad.o.ui.navigation.Screens
-import com.shahad.o.util.log
 import kotlin.math.roundToInt
 
 fun NavHostController.go(source: Screens, destination: Screens) {
@@ -153,8 +152,8 @@ fun NavGraphBuilder.animatedComposable(
         deepLinks = deepLinks,
         enterTransition = { scaleIntoContainer() },
         exitTransition = { scaleOutOfContainer()  },
-        popEnterTransition = popEnterTransition,
-        popExitTransition = popExitTransition,
+//        popEnterTransition = popEnterTransition,
+//        popExitTransition = popExitTransition,
         content = content
     )
 }

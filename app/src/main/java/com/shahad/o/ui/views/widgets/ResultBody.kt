@@ -63,14 +63,15 @@ fun ResultBody(
                     textAlign = TextAlign.Center,
                 )
             )
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             Image(
-                painter = painterResource(id = image),
-                contentDescription = "image",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
+                    painter = painterResource(id = image),
+                    contentDescription = "image",
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+
         }
     }
 }

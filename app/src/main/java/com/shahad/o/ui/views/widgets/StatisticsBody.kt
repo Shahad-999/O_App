@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -38,7 +39,6 @@ fun StatisticsBody(
         modifier = modifier.fillMaxSize(),
         topBar = {
             NavigationAppBar(
-
                 text = "",
                 backToHome = backToHome,
                 modifier = modifier.background(OTheme.colors.background)
@@ -53,13 +53,14 @@ fun StatisticsBody(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Select range to see a graph",
+                text = "Select dates to track daily output levels.",
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight(500),
                     color = OTheme.colors.onBackground,
                     textAlign = TextAlign.Center,
-                )
+                ),
+                modifier = Modifier.fillMaxWidth(0.7f)
             )
             Spacer(modifier = Modifier.height(40.dp))
             DateRangeSelector(

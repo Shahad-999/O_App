@@ -39,19 +39,19 @@ fun DayReview(
         contentAlignment = Alignment.Center
     ) {
         if (questions.isEmpty) {
-            Text(text = "لا يوجد بيانات في هذا اليوم",style = TextStyle(
+            Text(text = "There is no data for this day",style = TextStyle(
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
             ))
         } else if (questions.isLoading) {
-            Text(text = "تحميل .....",style = TextStyle(
+            Text(text = "Loading ......",style = TextStyle(
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
             ))
         } else if (questions.isError) {
-            Text(text = "خطأو حاول مرة اخرى",style = TextStyle(
+            Text(text = "Fail",style = TextStyle(
                     color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
