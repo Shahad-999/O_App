@@ -26,3 +26,11 @@
 - Track your daily answers on a calendar.
 - Change the questions to fit you.
 - Get daily notifications.
+
+## Firestore database diagram
+
+Questions
+<img width="1362" alt="Screenshot 2024-02-21 at 7 28 57 PM" src="https://github.com/Shahad-999/O_App/assets/118618262/9c6cd71a-86dc-4afa-879a-d4073acca0ed">
+
+Records
+<img width="1362" alt="Screenshot 2024-02-21 at 7 27 44 PM" src="https://github.com/Shahad-999/O_App/assets/118618262/9ea62319-144f-4e50-9554-c6d0f76a3b56">
