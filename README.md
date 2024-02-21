@@ -21,10 +21,10 @@
   
 
 ## Features
-- Answe Daily Questions.
+- Answer Daily Questions.
 - Show your progress in charts.
 - Track your daily answers on a calendar.
-- Change the questions to fit you.
+- Customize the questions to fit you.
 - Get daily notifications.
 
 ## Firestore database diagram
