@@ -1,5 +1,6 @@
 package com.shahad.o.ui.views.widgets
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun SettingBody(
     modifier: Modifier = Modifier,
     userInfo: UserData,
-    isDarkTheme: StateFlow<Boolean>,
+    isDarkTheme: StateFlow<Boolean?>,
     inThemeChange: (Boolean) -> Unit,
     onNotificationsStatusChange: (Boolean) -> Unit,
     isNotificationsOn: StateFlow<Boolean>,
@@ -38,7 +39,7 @@ fun SettingBody(
         item{
             SettingRow(icon = painterResource(id = R.drawable.half_moon), text = "Dark Mode") {
                 OSwitch(
-                    checked = isDark,
+                    checked = isDark ?: isSystemInDarkTheme(),
                     onCheckedChange = inThemeChange,
                 )
             }

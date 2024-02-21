@@ -49,10 +49,10 @@ class DataStoreDataSourceImp(
         }
     }
 
-    override fun isDarkMode(): Flow<Boolean> {
+    override fun isDarkMode(): Flow<Boolean?> {
         val preferencesKey = booleanPreferencesKey(THEME_MODE_KEY)
         return context.dataStore.data.map {
-            it[preferencesKey].log() == true
+            it[preferencesKey].log()
         }
     }
 

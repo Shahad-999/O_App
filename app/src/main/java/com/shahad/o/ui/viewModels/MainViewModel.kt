@@ -17,8 +17,8 @@ class MainViewModel(
     private val userInfoUseCase: UserInfoUseCase,
 ) : ViewModel() {
 
-    private val _isDarkMode = MutableStateFlow(false)
-    val isDarkMode: StateFlow<Boolean> = _isDarkMode
+    private val _isDarkMode = MutableStateFlow<Boolean?>(null)
+    val isDarkMode: StateFlow<Boolean?> = _isDarkMode
 
 
     var state = UserState.Initial

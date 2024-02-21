@@ -16,7 +16,7 @@ interface Repository {
     suspend fun getRecords(): List<Record>
     suspend fun sentResult(results: Results)
     suspend fun updateMode(isDark: Boolean)
-    fun isDarkMode(): Flow<Boolean>
+    fun isDarkMode(): Flow<Boolean?>
 
     suspend fun storeNotificationsStatus(isTurnON: Boolean)
 

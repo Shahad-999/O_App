@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 class ThemeUseCase(
     private val repository: Repository
 ) : BaseUseCase() {
-    fun isDark(): Flow<Boolean> = repository.isDarkMode()
+    fun isDark(): Flow<Boolean?> = repository.isDarkMode()
     suspend fun updateMode(isDark: Boolean) {
         repository.updateMode(isDark)
     }

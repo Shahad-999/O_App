@@ -18,8 +18,8 @@ class SettingViewModel(
 ) : ViewModel() {
 
     val userData = userInfoUseCase.getUser()
-    private val _isDarkMode = MutableStateFlow(true)
-    val isDarkMode: StateFlow<Boolean> = _isDarkMode
+    private val _isDarkMode = MutableStateFlow<Boolean?>(null)
+    val isDarkMode: StateFlow<Boolean?> = _isDarkMode
 
     private val _isNotificationsOn = MutableStateFlow(true)
     val isNotificationsOn: StateFlow<Boolean> = _isNotificationsOn

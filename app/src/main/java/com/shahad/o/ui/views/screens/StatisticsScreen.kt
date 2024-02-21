@@ -1,6 +1,5 @@
 package com.shahad.o.ui.views.screens
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
@@ -13,7 +12,8 @@ import com.shahad.o.ui.navigation.Screens
 import com.shahad.o.ui.util.animatedComposable
 import com.shahad.o.ui.viewModels.StatisticsViewModel
 import com.shahad.o.ui.views.widgets.StatisticsBody
-import com.shahad.o.util.getCurrentDate import org.koin.androidx.compose.koinViewModel
+import com.shahad.o.util.getCurrentDate
+import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.statisticsRoute(
@@ -28,7 +28,6 @@ fun NavGraphBuilder.statisticsRoute(
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun StatisticScreen(
     modifier: Modifier = Modifier,

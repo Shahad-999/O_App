@@ -80,7 +80,7 @@ class RepositoryImp(
         datastoreDataSource.updateMode(isDark)
     }
 
-    override fun isDarkMode(): Flow<Boolean> {
+    override fun isDarkMode(): Flow<Boolean?> {
         return datastoreDataSource.isDarkMode()
     }
 

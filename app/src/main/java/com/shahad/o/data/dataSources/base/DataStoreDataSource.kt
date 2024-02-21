@@ -8,7 +8,7 @@ interface DataStoreDataSource {
     suspend fun getToken(): String?
     suspend fun deleteToken()
     suspend fun updateMode(isDark: Boolean)
-    fun isDarkMode(): Flow<Boolean>
+    fun isDarkMode(): Flow<Boolean?>
     suspend fun updateTodayStatus(isDone: Boolean)
     fun isTodayDone(): Flow<Boolean>
     suspend fun updateNotificationStatus(isTurn: Boolean)

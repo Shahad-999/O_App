@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.shahad.o.ui.views.screens.recordRoute
 import com.shahad.o.ui.views.screens.settingRoute
 import com.shahad.o.ui.views.screens.statisticsRoute
 import com.shahad.o.util.ReminderManger
+import com.shahad.o.util.log
 import org.koin.androidx.compose.koinViewModel
 import org.koin.java.KoinJavaComponent.inject
 
@@ -50,7 +52,8 @@ fun MainScreen(
     val isDarkTheme by mainViewModel.isDarkMode.collectAsState()
     val initialScreen =
         if (mainViewModel.state == UserState.Founded) Screens.HomeScreen.route else Screens.LoginScreen.route
-    OTheme(isDarkTheme) {
+    isDarkTheme.log("O_APP_DD")
+    OTheme(isDarkTheme ?: isSystemInDarkTheme()) {
         val navController = rememberNavController()
         Scaffold(
             Modifier.background(OTheme.colors.background)
